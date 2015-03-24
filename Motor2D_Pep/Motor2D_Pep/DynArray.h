@@ -4,6 +4,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#define DYN_ARRAY_BLOCK_SIZE 16
+
 template<class TYPE>
 class DynArray
 {
@@ -17,8 +19,14 @@ private:
 public:
 
 	//Constructors
-	DynArray(){ data = NULL; allocMemory = 0; numElements = 0; }
-	DynArray(const unsigned int memSize){ numElements = 0; Reallocate(memSize); }
+	DynArray() : data(NULL), allocMemory(0), numElements(0)
+	{ 
+		Reallocate(DYN_ARRAY_BLOCK_SIZE);
+	}
+	DynArray(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
+	{ 
+		Reallocate(memSize); 
+	}
 
 	//Destructors
 	~DynArray(){ delete data; }
@@ -42,29 +50,18 @@ public:
 	{
 		TYPE* tmp = data;
 
-		if (newSize >= allocMemory)
+		allocMemory = newSize;
+		data = new TYPE[newSize];
+		if (newSize < numElements)
 		{
-			allocMemory = newSize;
-			data = new TYPE[newSize];
-			for (int i = 0; i < numElements; i++)
-			{
-				data[i] = tmp[i];
-			}
+			numElements = newSize;
 		}
-		else
-		{
-			allocMemory = newSize;
-			data = new TYPE[newSize];
-			if (newSize < numElements)
-			{
-				numElements = newSize;
-			}
 
-			for (int i = 0; i < numElements; i++)
-			{
-				data[i] = tmp[i];
-			}
+		for (int i = 0; i < numElements; i++)
+		{
+			data[i] = tmp[i];
 		}
+		
 	};
 
 	//Puts an element at the end of the array
@@ -72,20 +69,21 @@ public:
 	{
 		if (numElements + 1 > allocMemory)
 		{
-			Reallocate(allocMemory + 1);
+			Reallocate(allocMemory + DYN_ARRAY_BLOCK_SIZE);
 		}
 		data[numElements] = newElement;
 		numElements++;
 	}
 
 	//Puts out the last element
-	int Pop()
+	bool Pop(TYPE& value)
 	{
 		if (numElements != 0)
 		{
-			numElements--;
-			return numElements;
+			value = data[--numElements];
+			return true;
 		}
+		return false;
 	}
 
 	//Like the PushBack but you can put an element where you say
@@ -101,7 +99,11 @@ public:
 			return true;
 		}
 
-		if (numElements + 1 > allocMemory) { Reallocate(allocMemory); }
+		if (numElements + 1 > allocMemory) 
+		{ 
+			Reallocate(allocMemory + DYN_ARRAY_BLOCK_SIZE);
+		}
+		
 		for (int i = numElements; i > position; i--)
 		{
 			data[i] = data[i--];
@@ -114,9 +116,20 @@ public:
 	}
 
 	//other util methods
-	int GetCapacity(){ return allocMemory; }
-	int Counter(){ return numElements; }
-	int Clear(){ numElements = 0; }
+	int GetCapacity() const
+	{ 
+		return allocMemory; 
+	}
+	
+	int Count() const
+	{ 
+		return numElements; 
+	}
+	
+	void Clear() 
+	{ 
+		numElements = 0; 
+	}
 };
 
 #endif // !_DYNAMIC_ARRAY_H_

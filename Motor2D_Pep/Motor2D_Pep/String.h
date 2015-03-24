@@ -104,7 +104,9 @@ public:
 	bool operator != (const char* c) const
 	{
 		if (c != NULL)
-			return strcmp(c, str) == 0;
+		{
+			return strcmp(c, str) != 0;
+		}
 		return false;
 	}
 
@@ -205,7 +207,7 @@ public:
 		return size;
 	}
 
-	char* GetStirng() const
+	char* GetString() const
 	{
 		return str;
 	}
