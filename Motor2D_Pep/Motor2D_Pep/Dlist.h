@@ -8,7 +8,7 @@ struct Node
 	Node<TYPE>* next;
 	Node<TYPE>* prev;
 
-	Node<TYPE>(const TYPE& _value)
+	inline Node<TYPE>(const TYPE& _value)
 	{
 		value = _value;
 		next = prev = NULL;
@@ -32,7 +32,7 @@ public:
 	/*
 	Constructor
 	*/
-	cDlist()
+	inline cDlist()
 	{
 		start = end = NULL;
 		size = 0;
@@ -101,6 +101,7 @@ public:
 			}
 		}
 		
+		delete[] delNode;
 		size--;
 		return (true);
 	}
@@ -143,7 +144,7 @@ public:
 	Node<TYPE>* GetByIndex(const unsigned int index) const
 	{
 		Node<TYPE>* tmp = start;
-		unsigned int counter = 1;
+		unsigned int counter = 0;
 		
 		while (counter != index && tmp != NULL)
 		{
@@ -153,7 +154,27 @@ public:
 
 		return tmp;
 	}
-	//poner aqui antes del examen
+	/*
+	Method for the exercise 3
+	*/
+	unsigned int delNodes(const unsigned int index, const unsigned int delSize)
+	{
+		Node<TYPE>* tmp = GetByIndex(index);
+		Node<TYPE>* tmp2;
+		
+		unsigned int counter = 0;
+		
+		while (counter != delSize && tmp != NULL)
+		{
+			tmp2 = tmp->next;
+			Delete(tmp);
+			tmp = tmp2;
+			
+			counter++;
+		}
+		
+		return counter;
+	}
 };
 
 #endif // !_DLIST_H_

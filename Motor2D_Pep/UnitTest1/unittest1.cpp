@@ -3,6 +3,7 @@
 #include "..\Motor2D_Pep\Dlist.h"
 #include "..\Motor2D_Pep\String.h"
 #include "..\Motor2D_Pep\DynArray.h"
+#include "..\Motor2D_Pep\Projectile.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -13,8 +14,98 @@ namespace UnitTest1
 	{
 	public:
 		
-		//Point2D
+		/*
+		Unit Test that are exercises from examn
+		*/
+		// Projectile ----------------------------------------
+		TEST_METHOD(Projectile_test)
+		{
+			Projectile p;
+			p.point.x = 10.0f;
+			p.point.y = 10.0f;
+			p.speed.x = 2.0f;
+			p.speed.y = 0.0f;
+			cPoint2D<float> current = p.GetCurrentPosition(3.0f);
+			Assert::AreEqual((float)16.0f, current.x, 0.00001f);
+			Assert::AreEqual((float)10.0f, current.y, 0.00001f);
+		}
+		// ArrDyn remove wasted memory ----------------------------------------
+		TEST_METHOD(ArrDyn_optimizeMem)
+		{
+			DynArray<int> array(10);
+			array.PushBack(1);
+			array.PushBack(2);
+			array.PushBack(3);
+			Assert::AreEqual((unsigned int)10, array.GetCapacity());
+			unsigned int wasted = array.removeWastedMemory();
+			Assert::AreEqual((unsigned int)3, array.GetCapacity());
+			Assert::AreEqual((unsigned int)7, wasted);
+			Assert::AreEqual((int)1, array[0]);
+			Assert::AreEqual((int)2, array[1]);
+			Assert::AreEqual((int)3, array[2]);
+		}
+		// P2List delete few nodes ----------------------------------------
+		TEST_METHOD(p2List_delNodes_mid)
+		{
+			cDlist<int> l;
+			l.Add(1);
+			l.Add(2);
+			l.Add(3);
+			l.Add(4);
+			l.delNodes(1, 2);
+			Assert::AreEqual((int)1, l.start->value);
+			Assert::AreEqual((int)4, l.end->value);
+			Assert::AreEqual((unsigned int)2, l.GetCapacity());
+		}
+		// P2List delete few nodes ----------------------------------------
+		TEST_METHOD(p2List_delNodes_begin)
+		{
+			cDlist<int> l;
+			l.Add(1);
+			l.Add(2);
+			l.Add(3);
+			l.Add(4);
+			l.delNodes(0, 3);
+			Assert::AreEqual((int)4, l.start->value);
+			Assert::AreEqual((int)4, l.end->value);
+			Assert::AreEqual((unsigned int)1, l.GetCapacity());
+		}
+		// P2List delete few nodes ----------------------------------------
+		TEST_METHOD(p2List_delNodes_end)
+		{
+			cDlist<int> l;
+			l.Add(1);
+			l.Add(2);
+			l.Add(3);
+			l.Add(4);
+			l.delNodes(2, 100);
+			Assert::AreEqual((int)1, l.start->value);
+			Assert::AreEqual((int)2, l.end->value);
+			Assert::AreEqual((unsigned int)2, l.GetCapacity());
+		}
+		// String prefix ----------------------------------------
+		TEST_METHOD(String_prefix)
+		{
+			cString a("1234567890");
+			cString b(50);
+			b = "hola";
+			a.Prefix(b);
+			b.Prefix("1234567890");
+			Assert::AreEqual(strcmp(a.GetString(), "hola1234567890"), 0);
+			Assert::AreEqual(strcmp(b.GetString(), "1234567890hola"), 0);
+		}
+
+
+
 		
+		
+		
+		
+		
+		
+		/*
+		Unit test previous to the examen
+		*/
 		// DYN ARRAY -----------------------------------------
 		TEST_METHOD(DynArray_ctor)
 		{

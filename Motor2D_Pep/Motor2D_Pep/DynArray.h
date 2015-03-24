@@ -116,12 +116,12 @@ public:
 	}
 
 	//other util methods
-	int GetCapacity() const
+	unsigned int GetCapacity() const
 	{ 
 		return allocMemory; 
 	}
 	
-	int Count() const
+	unsigned int Count() const
 	{ 
 		return numElements; 
 	}
@@ -129,6 +129,18 @@ public:
 	void Clear() 
 	{ 
 		numElements = 0; 
+	}
+
+	/*
+	Method for the exercise 2
+	*/
+	unsigned int removeWastedMemory()
+	{
+		unsigned int wasted = allocMemory - numElements;
+		allocMemory = allocMemory - wasted;
+		Reallocate(allocMemory);
+
+		return wasted;
 	}
 };
 
