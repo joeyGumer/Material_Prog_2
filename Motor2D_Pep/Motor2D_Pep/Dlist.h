@@ -18,6 +18,10 @@ public:
 	Node<TYPE>* start;
 	Node<TYPE>* end;//with the end it goes faster
 
+private:
+
+	unsigned int size;
+
 public:
 	/*
 	Constructor
@@ -25,13 +29,14 @@ public:
 	cDlist()
 	{
 		start = end = NULL;
+		size = 0;
 	}
 	/*
 	Destructor
 	*/
 	~cDlist()
 	{
-
+		Clear();
 	}
 
 	/*
@@ -52,6 +57,8 @@ public:
 			newNode->prev = end;
 			end = newNode;
 		}
+
+		size++;
 	}
 
 	bool Delete(Node<TYPE>* delNode)
@@ -86,6 +93,9 @@ public:
 				end = start = NULL;
 			}
 		}
+		
+		size--;
+		return (true);
 	}
 
 	void Clear()
@@ -101,10 +111,48 @@ public:
 		}
 
 		start = end = NULL;
+
+		size = 0;
 	}
 	/*
 	other utils
 	*/
+
+	unsigned int GetCapacity() const
+	{
+		return size;
+	}
+
+	Node<TYPE>* GetFirst() const
+	{
+		return start;
+	}
+	
+	Node<TYPE>* GetLast() const
+	{
+		return end;
+	}
+
+	Node<TYPE>* GetByIndex(const unsigned int index) const
+	{
+		Node<TYPE>* tmp = start;
+		unsigned int counter = 1;
+		
+		while (counter != index && tmp->next != NULL)
+		{
+			tmp = tmp - next;
+			counter++;
+		}
+
+		if (tmp->next != NULL)
+		{
+			return tmp;
+		}
+		else
+		{
+			return (NULL);
+		}
+	}
 	//poner aqui antes del examen
 };
 
