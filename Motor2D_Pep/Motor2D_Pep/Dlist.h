@@ -7,8 +7,6 @@ struct Node
 	TYPE value;
 	Node<TYPE>* next;
 	Node<TYPE>* prev;
-
-	inline Node()
 };
 
 template<class TYPE>
@@ -49,7 +47,6 @@ public:
 		Node<TYPE>* newNode;
 		newNode = new Node<TYPE>(newValue);
 		
-		penispenis
 		if (start == NULL)
 		{
 			start = end = newNode;
