@@ -48,6 +48,7 @@ public:
 	/*
 	Methods
 	*/
+	//Add
 	TYPE Add(const TYPE& newValue)
 	{
 		Node<TYPE>* newNode;
