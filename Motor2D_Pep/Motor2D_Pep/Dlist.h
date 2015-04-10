@@ -7,6 +7,12 @@ struct Node
 	TYPE value;
 	Node<TYPE>* next;
 	Node<TYPE>* prev;
+
+	inline Node<TYPE>(const TYPE& _value)
+	{
+		value = _value;
+		next = prev = NULL;
+	}
 };
 
 template<class TYPE>
@@ -26,7 +32,7 @@ public:
 	/*
 	Constructor
 	*/
-	cDlist()
+	inline cDlist()
 	{
 		start = end = NULL;
 		size = 0;
@@ -42,7 +48,7 @@ public:
 	/*
 	Methods
 	*/
-	void Add(const TYPE& newValue)
+	TYPE Add(const TYPE& newValue)
 	{
 		Node<TYPE>* newNode;
 		newNode = new Node<TYPE>(newValue);
@@ -59,6 +65,7 @@ public:
 		}
 
 		size++;
+		return size;
 	}
 
 	bool Delete(Node<TYPE>* delNode)
@@ -94,6 +101,7 @@ public:
 			}
 		}
 		
+		delete[] delNode;
 		size--;
 		return (true);
 	}
@@ -136,24 +144,37 @@ public:
 	Node<TYPE>* GetByIndex(const unsigned int index) const
 	{
 		Node<TYPE>* tmp = start;
-		unsigned int counter = 1;
+		unsigned int counter = 0;
 		
-		while (counter != index && tmp->next != NULL)
+		while (counter != index && tmp != NULL)
 		{
-			tmp = tmp - next;
+			tmp = tmp->next;
 			counter++;
 		}
 
-		if (tmp->next != NULL)
-		{
-			return tmp;
-		}
-		else
-		{
-			return (NULL);
-		}
+		return tmp;
 	}
-	//poner aqui antes del examen
+	/*
+	Method for the exercise 3
+	*/
+	unsigned int delNodes(const unsigned int index, const unsigned int delSize)
+	{
+		Node<TYPE>* tmp = GetByIndex(index);
+		Node<TYPE>* tmp2;
+		
+		unsigned int counter = 0;
+		
+		while (counter != delSize && tmp != NULL)
+		{
+			tmp2 = tmp->next;
+			Delete(tmp);
+			tmp = tmp2;
+			
+			counter++;
+		}
+		
+		return counter;
+	}
 };
 
 #endif // !_DLIST_H_

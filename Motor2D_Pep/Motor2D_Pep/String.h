@@ -104,7 +104,9 @@ public:
 	bool operator != (const char* c) const
 	{
 		if (c != NULL)
-			return strcmp(c, str) == 0;
+		{
+			return strcmp(c, str) != 0;
+		}
 		return false;
 	}
 
@@ -205,7 +207,7 @@ public:
 		return size;
 	}
 
-	char* GetStirng() const
+	char* GetString() const
 	{
 		return str;
 	}
@@ -217,6 +219,43 @@ private:
 	{
 		size = memSize;
 		str = new char[size];
+	}
+
+public:
+	/*
+	Methods for exercise 4
+	*/
+	const void Prefix(const cString& c)
+	{
+		unsigned int newSize = Length() + c.Length() + 1;
+		
+		char* tmp = str;
+		Alloc(newSize);
+
+		strcpy_s(str, c.Length(), c.str);
+		strcat_s(str, size, tmp);
+
+		delete[] tmp;
+		
+		
+
+	}
+	
+	const void Prefix(const char* c)
+	{
+		if (c != NULL)
+		{
+			unsigned int newSize = Length() + strlen(c) + 1;
+			
+			char* tmp = str;
+			Alloc(newSize);
+
+			strcpy_s(str, strlen(c), c);
+			strcat_s(str, size, tmp);
+
+			delete[] tmp;
+		}
+
 	}
 };
 
