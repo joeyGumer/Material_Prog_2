@@ -4,6 +4,7 @@
 #include "..\Motor2D_Pep\String.h"
 #include "..\Motor2D_Pep\DynArray.h"
 #include "..\Motor2D_Pep\Projectile.h"
+#include "..\Motor2D_Pep\Tree.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -14,6 +15,16 @@ namespace UnitTest1
 	{
 	public:
 		
+		/*
+		//Unit test after the examen
+		*/
+
+		// TREE -------------------------------------------
+		TEST_METHOD(Tree_Add)
+		{
+
+		}
+
 		/*
 		Unit Test that are exercises from examn
 		*/
