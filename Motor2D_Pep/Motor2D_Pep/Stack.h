@@ -7,7 +7,7 @@
 #define DYN_ARRAY_BLOCK_SIZE 16
 
 template<class TYPE>
-class Stack
+class cStack
 {
 
 private:
@@ -19,17 +19,17 @@ private:
 public:
 
 	//Constructors
-	Stack() : data(NULL), allocMemory(0), numElements(0)
+	cStack() : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(DYN_ARRAY_BLOCK_SIZE);
 	}
-	Stack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
+	cStack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(memSize);
 	}
 
 	//Destructors
-	~Stack()
+	~cStack()
 	{ 
 		delete data; 
 	}

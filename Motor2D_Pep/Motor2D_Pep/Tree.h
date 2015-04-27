@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include "Dlist.h"
-
+#include "Stack.h"
 template <class TYPE>
 class tNode
 {
@@ -58,7 +58,11 @@ class tNode
 			counter++;
 		}
 		list.Add(data);
-		counter++;
+		while (item != NULL)
+		{
+			tNode->InOrderRecursive(list);
+			item = item->next;
+		}
 	}
 };
 
@@ -104,26 +108,82 @@ public:
 	}
 
 	//Function that returns all the nodes (recursive)
-	void PreOrderRecursive(cDlist<TYPE>* list) const;
+	void PreOrderRecursive(cDlist<TYPE>* list) const
 	{
 		root.PreOrderRecursive(list);
 	}
 
-	void PostOrderRecursive(cDlist<TYPE>* list) const;
+	void PostOrderRecursive(cDlist<TYPE>* list) const
 	{
 		root.PostOrderRecursive(list);
 	}
 
-	void InOrderRecursive(cDlist<TYPE>* list) const;
+	void InOrderRecursive(cDlist<TYPE>* list) const
 	{
 		root.InOrderRecursive(list) const;
 	}
 
 	//Function that returns all the nodes (iterative)
-	void PreOrderIterative(cDlist<TYPE>* list) const;
+	void PreOrderIterative(cDlist<TYPE>* list) const
+	{
+		cStack<tNode<TYPE*>*> stack;
+		tNode<TYPE>* node = &rootNode;
+		Node<tNode<TYPE>*>* tmp;
 
+		while (node != NULL)
+		{
+			list.Add(node);
 
+			tmp = node->sons.end;
 
+			while (tmp != node->sons.start)
+			{
+				stack.Push(tmp->value);
+				tmp = tmp->prev;
+			}
+
+			if (tmp != NULL)
+			{
+				node = tmp->value;
+			}
+			else()
+			{
+				node = NULL;
+				pop.stack(node);
+			}
+		}
+	}
+
+	void PostOrderIterative(cDlist<TYPE>* list) const
+	{
+		cStack<tNode<TYPE*>*> stack;
+		tNode<TYPE>* node = &rootNode;
+		Node<tNode<TYPE>*>* tmp;
+
+		while (Node != NULL)
+		{
+			tmp = node->sons.end;
+
+			if (tmp != NULL && list->end != tmp->value)
+			{
+				stack.Push(Node);
+
+				while (tmp != node->sons.start)
+				{
+					stack.Push(tmp->value);
+					tmp = tmp->prev;
+				}
+
+				node = tmp->value;
+			}
+			else
+			{
+				list.add(node);
+				stack.Pop(node);
+			}
+
+		}
+	}
 
 
 };
@@ -132,4 +192,4 @@ public:
 
 
 
-#endif _TREE_H_
+#endif _TREE_H_<
