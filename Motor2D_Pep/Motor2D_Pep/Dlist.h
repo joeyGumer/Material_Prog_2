@@ -1,6 +1,8 @@
 #ifndef _DLIST_H_
 #define _DLIST_H_
 
+#include <assert.h>
+
 template<class TYPE>
 struct Node
 {
@@ -158,6 +160,33 @@ public:
 
 		return NULL;
 	}
+	
+	/*
+	operator
+	*/
+	TYPE& operator  [](const unsigned int index)
+	{
+		long                  pos;
+		Node<TYPE>*   tmp;
+		pos = 0;
+		tmp = start;
+
+		while (tmp != NULL)
+		{
+			if (pos == index)
+			{
+				break;
+			}
+
+			++pos;
+			tmp = tmp->next;
+		}
+
+		ASSERT(tmp);
+
+		return(tmp->data);
+	}
+
 	/*
 	Method for the exercise 3
 	*/

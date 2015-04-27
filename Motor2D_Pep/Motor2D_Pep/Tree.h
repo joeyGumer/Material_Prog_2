@@ -12,17 +12,17 @@ class tNode
 	cDlist<tNode*> sons;//els nodes segueents, ramificacions, els fills
 
 	//Constructors
-	tNode() : data(0), father(NULL), son(NULL);
-	tNode(TYPE& newValue) : data(newValue), father(NULL), son(NULL){};
-	tNode(TYPE& newValue, tNode* dad) : data(newValue), father(dad), son(NULL){};
+	tNode() : data(0), father(NULL){};
+	tNode(TYPE& newValue) : data(newValue), father(NULL){};
+	tNode(TYPE& newValue, tNode* dad) : data(newValue), father(dad){};
 
 	//Functions that gets all the nodes (recursive)
 	//fer apunts dels diferents tipus d'ordentacio perque no m'he enterat a casa
 	//amb l'arbre fet a clase  la preOrder dona: F,B,A,D,C,E,G,I,H (per montarla)
 	//fer les mateixers funcions per iteratives (s'ha d'utilitzar una pila)
-	void PreOrderRecursive(cDlist<TYPE>* list)
+	void PreOrderRecursive(cDlist<tNode<TYPE>*>* list)
 	{
-		list.Add(data);
+		list->Add(this);
 		Node<tNode*>* item = sons.start;
 		
 
@@ -33,7 +33,7 @@ class tNode
 		}
 	}
 
-	void PostOrderRecursive(cDlist<TYPE>* list)
+	void PostOrderRecursive(cDlist<tNode<TYPE>*>* list)
 	{
 		
 		Node<tNode*>* item = sons.start;
@@ -43,10 +43,10 @@ class tNode
 			tNode->PostOrderRecursive(list);
 			item = item->next;
 		}
-		list.Add(data);
+		list->Add(this);
 	}
 
-	void InOrderRecursive(cDlist<TYPE>* list)
+	void InOrderRecursive(cDlist<tNode<TYPE>*>* list)
 	{
 		Node<tNode*>* item = sons.start;
 		unsigned int counter = 0;
@@ -57,7 +57,7 @@ class tNode
 			item = item->next;
 			counter++;
 		}
-		list.Add(data);
+		list->Add(this);
 		while (item != NULL)
 		{
 			tNode->InOrderRecursive(list);
@@ -91,40 +91,45 @@ public:
 	}
 
 	//Add
-	tNode<TYPE>* Add(TYPE& newData)
+	tNode<TYPE>* Add(const TYPE& newData)
 	{
 		tNode<TYPE>* newNode = new tNode(newData);
+		
 		rootNode->sons->Add(newNode);
 		newNode->father = rootNode;
+		
 		return newNode;
 	}
 
-	tNode<TYPE>* Add(TYPE& newData, tNode<TYPE>* dad)
+	tNode<TYPE>* Add(const TYPE& newData, const TYPE& dad)
 	{
 		tNode<TYPE>* newNode = new tNode(newData);
-		dad->sons->Add(newNode);
-		newNode->father = dad;
+		tNode<TYPE>* parent = GetNode(dad);
+		
+		parent->sons->Add(newNode);
+		newNode->father = parent;
+		
 		return newNode;
 	}
 
 	//Function that returns all the nodes (recursive)
-	void PreOrderRecursive(cDlist<TYPE>* list) const
+	void PreOrderRecursive(cDlist<tNode<TYPE>*>* list) const
 	{
 		root.PreOrderRecursive(list);
 	}
 
-	void PostOrderRecursive(cDlist<TYPE>* list) const
+	void PostOrderRecursive(cDlist<tNode<TYPE>*>* list) const
 	{
 		root.PostOrderRecursive(list);
 	}
 
-	void InOrderRecursive(cDlist<TYPE>* list) const
+	void InOrderRecursive(cDlist<tNode<TYPE>*>* list) const
 	{
 		root.InOrderRecursive(list) const;
 	}
 
 	//Function that returns all the nodes (iterative)
-	void PreOrderIterative(cDlist<TYPE>* list) const
+	void PreOrderIterative(cDlist<tNode<TYPE>*>* list) const
 	{
 		cStack<tNode<TYPE*>*> stack;
 		tNode<TYPE>* node = &rootNode;
@@ -132,7 +137,7 @@ public:
 
 		while (node != NULL)
 		{
-			list.Add(node);
+			list->Add(node);
 
 			tmp = node->sons.end;
 
@@ -154,7 +159,38 @@ public:
 		}
 	}
 
-	void PostOrderIterative(cDlist<TYPE>* list) const
+	void PostOrderIterative(cDlist<tNode<TYPE>*>* list) const
+	{
+		cStack<tNode<TYPE*>*> stack;
+		tNode<TYPE>* node = &rootNode;
+		Node<tNode<TYPE>*>* tmp;
+
+		while (Node != NULL)
+		{
+			tmp = node->sons.end;
+
+			if (tmp != NULL && list->end != tmp->value)
+			{
+				stack.Push(Node);
+
+				while (tmp != node->sons.start)
+				{
+					stack.Push(tmp->value);
+					tmp = tmp->prev;
+				}
+
+				node = tmp->value;
+			}
+			else
+			{
+				list->Add(node);
+				stack.Pop(node);
+			}
+
+		}
+	}
+
+	/*void InOrderIterative(cDlist<tNode<TYPE>*>* list) const
 	{
 		cStack<tNode<TYPE*>*> stack;
 		tNode<TYPE>* node = &rootNode;
@@ -183,6 +219,27 @@ public:
 			}
 
 		}
+	}*/
+
+	tNode<TYPE>* GetNode(const TYPE& nodeData) const
+	{
+		cDlist<tNode<TYPE>*>* list;
+		
+		PreOrderIterative(list);
+
+		Node<tNode<TYPE>*>* node = list->start;
+		tNode<TYPE>* tmp;
+
+		while (node != NULL)
+		{
+			tmp = node->value
+
+			if (tmp->data = nodeData)
+				return tmp;
+
+			node = node->next;
+		}
+		return NULL;
 	}
 
 

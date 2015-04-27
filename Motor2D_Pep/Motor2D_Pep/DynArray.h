@@ -57,7 +57,7 @@ public:
 			numElements = newSize;
 		}
 
-		for (int i = 0; i < numElements; i++)
+		for (unsigned int i = 0; i < numElements; i++)
 		{
 			data[i] = tmp[i];
 		}
@@ -104,7 +104,7 @@ public:
 			Reallocate(allocMemory + DYN_ARRAY_BLOCK_SIZE);
 		}
 		
-		for (int i = numElements; i > position; i--)
+		for (unsigned int i = numElements; i > position; i--)
 		{
 			data[i] = data[i--];
 		}

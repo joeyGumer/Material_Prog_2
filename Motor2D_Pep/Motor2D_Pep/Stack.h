@@ -48,7 +48,7 @@ public:
 			numElements = newSize;
 		}
 
-		for (int i = 0; i < numElements; i++)
+		for (unsigned int i = 0; i < numElements; i++)
 		{
 			data[i] = tmp[i];
 		}
@@ -58,7 +58,7 @@ public:
 	//Puts an element at the end of the stack
 	void Push(const TYPE newElement)
 	{
-		if (numElements + 1 > allocMemory)
+		if (numElements  >= allocMemory)
 		{
 			Reallocate(allocMemory + DYN_ARRAY_BLOCK_SIZE);
 		}
@@ -69,10 +69,9 @@ public:
 	//Puts out the last element
 	bool Pop(TYPE& value)
 	{
-		if (numElements != 0)
+		if (numElements > 0)
 		{
-			TYPE value = data[--numElements];
-			
+			value = data[--numElements];
 			return true;
 		}
 		return false;
@@ -81,10 +80,10 @@ public:
 	//Chooses an element from the stack
 	const TYPE* Peek(const unsigned int index)const
 	{
-		TYPE* ret;
+		TYPE* ret = NULL;
 		
 		if (index < numElements)
-			ret = &data[index];
+			return ret = &data[index];
 
 		return ret;
 	}
