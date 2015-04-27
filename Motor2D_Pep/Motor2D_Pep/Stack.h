@@ -7,7 +7,7 @@
 #define DYN_ARRAY_BLOCK_SIZE 16
 
 template<class TYPE>
-class cStack
+class Stack
 {
 
 private:
@@ -19,17 +19,17 @@ private:
 public:
 
 	//Constructors
-	cStack() : data(NULL), allocMemory(0), numElements(0)
+	Stack() : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(DYN_ARRAY_BLOCK_SIZE);
 	}
-	cStack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
+	Stack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(memSize);
 	}
 
 	//Destructors
-	~cStack()
+	~Stack()
 	{ 
 		delete data; 
 	}
@@ -67,18 +67,19 @@ public:
 	}
 
 	//Puts out the last element
-	bool Pop(TYPE& value)
+	bool Pop()
 	{
 		if (numElements != 0)
 		{
-			value = data[--numElements];
+			TYPE tmp = data[numElements];
+			numElement--;
 			return true;
 		}
 		return false;
 	}
 
 	//Chooses an element from the stack
-	const TYPE Pick(){}
+	const TYPE Pick()
 
 	//other util methods
 	unsigned int GetCapacity() const

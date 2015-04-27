@@ -17,7 +17,7 @@ struct Node
 };
 
 template<class TYPE>
-class cQueue
+class Queue
 {
 
 public:
@@ -32,7 +32,7 @@ public:
 	/*
 	Constructor
 	*/
-	inline cQueue()
+	inline Queue()
 	{
 		end = NULL;
 		size = 0;
@@ -40,7 +40,7 @@ public:
 	/*
 	Destructor
 	*/
-	~cQueue()
+	~Queue()
 	{
 		Clear();
 	}
@@ -67,25 +67,15 @@ public:
 		return size;
 	}
 
-	bool Pop(TYPE& _value)
+	bool Pop(TYPE& valor)
 	{
-		if (start != NULL)
-		{
-			Node<TYPE>* tmp = end;
-			
-			_value = tmp;
+		Node<TYPE>* tmp = end;
 
-			end = tmp->prev;
-			end->next = NULL;
+		end = tmp->prev;
+		end->next = NULL;
 
-			delete tmp;
-			return true;
-		}
-		return false;
+		return tmp->value;
 	}
-
-	const TYPE Pick(){}
-
 
 	void Clear()
 	{
