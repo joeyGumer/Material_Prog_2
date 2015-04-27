@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 #include "Dlist.h"
+#include "Stack.h"
+#include "Queue.h"
 
 template <class TYPE>
 class tNode
@@ -12,14 +14,27 @@ class tNode
 	cDlist<tNode*> sons;//els nodes segueents, ramificacions, els fills
 
 	//Constructors
-	tNode() : data(0), father(NULL), son(NULL);
-	tNode(TYPE& newValue) : data(newValue), father(NULL), son(NULL){};
-	tNode(TYPE& newValue, tNode* dad) : data(newValue), father(dad), son(NULL){};
+	
+	tNode(TYPE& newValue) : data(newValue), father(NULL){};
+
+	bool AddChild(tNode* node)
+	{
+		if (node != NULL)
+		{
+			sons.Add(node);
+			node->parent = this;
+
+			return true;
+		}
+		return false;
+	}
 
 	//Functions that gets all the nodes (recursive)
 	//fer apunts dels diferents tipus d'ordentacio perque no m'he enterat a casa
 	//amb l'arbre fet a clase  la preOrder dona: F,B,A,D,C,E,G,I,H (per montarla)
 	//fer les mateixers funcions per iteratives (s'ha d'utilitzar una pila)
+
+
 	void PreOrderRecursive(cDlist<TYPE>* list)
 	{
 		list.Add(data);
@@ -57,8 +72,14 @@ class tNode
 			item = item->next;
 			counter++;
 		}
+		
 		list.Add(data);
-		counter++;
+		
+		while (item != NULL)
+		{
+			tNode->PostOrderRecursive(list);
+			item = item->next;
+		}
 	}
 };
 
@@ -104,24 +125,68 @@ public:
 	}
 
 	//Function that returns all the nodes (recursive)
-	void PreOrderRecursive(cDlist<TYPE>* list) const;
+	void PreOrderRecursive(cDlist<TYPE>* list) const
 	{
 		root.PreOrderRecursive(list);
 	}
 
-	void PostOrderRecursive(cDlist<TYPE>* list) const;
+	void PostOrderRecursive(cDlist<TYPE>* list) const
 	{
 		root.PostOrderRecursive(list);
 	}
 
-	void InOrderRecursive(cDlist<TYPE>* list) const;
+	void InOrderRecursive(cDlist<TYPE>* list) const
 	{
 		root.InOrderRecursive(list) const;
 	}
 
 	//Function that returns all the nodes (iterative)
-	void PreOrderIterative(cDlist<TYPE>* list) const;
+	void PreOrderIterative(cDlist<TYPE>* list) const
+	{
+		cStack<tNode<TYPE>*> stack;
+		tNode<TYPE>* node = &rootNode;
 
+		while (node != NULL || stack.Pop(node))
+		{
+			list.Add(node);
+
+			Node<tNode<TYPE>*>* tmp = node->sons.end;
+
+			while (tmp != node->sons.start)
+			{
+				stack.Push(tmp->value);
+				tmp = tmp->prev;
+			}
+
+			if (tmp != NULL)
+				node = tmp->value;
+			else
+				node = NULL;
+		}
+	}
+
+	/*void PostOrderIterative(cDlist<TYPE>* list) const
+	{
+		cStack<tNode<TYPE>*> stack;
+		tNode<TYPE>* node = &rootNode;
+
+		while ()
+		{
+			stack.Push(node);
+
+			Node<tNode<TYPE>*>* tmp = node->sons.end;
+
+			if (tmp != NULL)
+			{
+				node = tmp->value;
+			}
+			else
+			{
+				node = node
+			}
+		}
+
+	}*/
 
 
 
