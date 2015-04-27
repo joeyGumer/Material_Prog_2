@@ -33,10 +33,10 @@
     <ClInclude Include="Stack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Qeue.h">
+    <ClInclude Include="Tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tree.h">
+    <ClInclude Include="Qeue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -153,7 +153,10 @@ public:
 			counter++;
 		}
 
-		return tmp;
+		if (tmp != NULL)
+			return tmp;
+
+		return NULL;
 	}
 	/*
 	Method for the exercise 3

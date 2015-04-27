@@ -5,7 +5,8 @@
 #include "..\Motor2D_Pep\DynArray.h"
 #include "..\Motor2D_Pep\Projectile.h"
 #include "..\Motor2D_Pep\Tree.h"
-
+#include "..\Motor2D_Pep\Stack.h"
+#include "..\Motor2D_Pep\Qeue.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -25,6 +26,48 @@ namespace UnitTest1
 
 		}
 
+		//STACK------------------------------------------------
+		TEST_METHOD(Stack_test)
+		{
+			cStack<int> lifo;
+
+			lifo.Push(10);
+			lifo.Push(20);
+			lifo.Push(30);
+			lifo.Push(40);
+
+			Assert::AreEqual((int)lifo.Count(), 4);
+			Assert::AreEqual((int)*(lifo.Peek(1)), 20);
+
+			int result;
+			bool r = lifo.Pop(result);
+
+			Assert::AreEqual((int)result, 40);
+			Assert::AreEqual((int)lifo.Count(), 3);
+		}
+
+		//QEUE-------------------------------------------------
+		TEST_METHOD(Qeue_test)
+		{
+			cQeue<int> fifo;
+
+
+			fifo.Push(11);
+			fifo.Push(22);
+			fifo.Push(33);
+
+			Assert::AreEqual((int)fifo.Count(), 3);
+			Assert::AreEqual((int)*(fifo.Peek(1)), 22);
+
+
+			int result;
+			bool r = fifo.Pop(result);
+			
+			/*
+			Assert::AreEqual((int)result, 33);
+			Assert::AreEqual((int)fifo.Count(), 2);
+			*/
+		}
 		/*
 		Unit Test that are exercises from examn
 		*/

@@ -1,13 +1,13 @@
-#ifndef _QEUE_H_
-#define _QEUE_H_
+#ifndef _QUEUE_H_
+#define _QUEUE_H_
 
+#include <stdlib.h>
 template<class TYPE>
 struct Node
 {
 	TYPE value;
 	Node<TYPE>* next;
 	Node<TYPE>* prev;
-	
 
 	inline Node<TYPE>(const TYPE& _value)
 	{
@@ -17,12 +17,11 @@ struct Node
 };
 
 template<class TYPE>
-class cQeue
+class Queue
 {
 
 public:
 
-	Node<TYPE>* start;
 	Node<TYPE>* end;
 
 private:
@@ -33,15 +32,15 @@ public:
 	/*
 	Constructor
 	*/
-	inline cQeue()
+	inline Queue()
 	{
-		end = start = NULL;
+		end = NULL;
 		size = 0;
 	}
 	/*
 	Destructor
 	*/
-	~cQeue()
+	~Queue()
 	{
 		Clear();
 	}
@@ -70,24 +69,15 @@ public:
 
 	bool Pop(TYPE& value)
 	{
-		if (end != NULL)
-		{
-			Node<TYPE>* tmp = end;
+		Node<TYPE>* tmp = end;
 
-			end = tmp->prev;
-			end->next = NULL;
+		end = tmp->prev;
+		end->next = NULL;
 
-			value = tmp->value;
-
-			delete[] tmp;
-			size--;
-			
-			return true;
-		}
-		return false;
+		return tmp->value;
 	}
 
-	const TYPE* Peek(const unsigned int index)const
+	TYPE* Peek(const unsigned int index) const
 	{
 		Node<TYPE>* tmp = start;
 		unsigned int counter = 0;
@@ -99,7 +89,7 @@ public:
 		}
 
 		if (tmp != NULL)
-			return &(tmp->value);
+			return & (tmp->value);
 
 		return NULL;
 	}
@@ -117,15 +107,13 @@ public:
 		}
 
 		start = end = NULL;
+
 		size = 0;
 	}
 	/*
 	other utils
 	*/
-	unsigned int Count() const
-	{
-		return size;
-	}
+
 	
 };
 

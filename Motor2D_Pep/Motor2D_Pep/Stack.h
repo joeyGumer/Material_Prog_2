@@ -31,7 +31,7 @@ public:
 	//Destructors
 	~cStack()
 	{ 
-		delete data; 
+		delete[] data; 
 	}
 	
 	//Methods
@@ -67,19 +67,27 @@ public:
 	}
 
 	//Puts out the last element
-	bool Pop()
+	bool Pop(TYPE& value)
 	{
 		if (numElements != 0)
 		{
-			TYPE tmp = data[numElements];
-			numElement--;
+			TYPE value = data[--numElements];
+			
 			return true;
 		}
 		return false;
 	}
 
 	//Chooses an element from the stack
-	const TYPE Pick()
+	const TYPE* Peek(const unsigned int index)const
+	{
+		TYPE* ret;
+		
+		if (index < numElements)
+			ret = &data[index];
+
+		return ret;
+	}
 
 	//other util methods
 	unsigned int GetCapacity() const
