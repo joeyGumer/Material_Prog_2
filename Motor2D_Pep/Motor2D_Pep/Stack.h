@@ -7,7 +7,7 @@
 #define DYN_ARRAY_BLOCK_SIZE 16
 
 template<class TYPE>
-class cStack
+class Stack
 {
 
 private:
@@ -19,21 +19,21 @@ private:
 public:
 
 	//Constructors
-	cStack() : data(NULL), allocMemory(0), numElements(0)
+	Stack() : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(DYN_ARRAY_BLOCK_SIZE);
 	}
-	cStack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
+	Stack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(memSize);
 	}
 
 	//Destructors
-	~cStack()
-	{ 
-		delete[] data; 
+	~Stack()
+	{
+		delete[] data;
 	}
-	
+
 	//Methods
 
 	//Changes the stack size
@@ -58,7 +58,7 @@ public:
 	//Puts an element at the end of the stack
 	void Push(const TYPE newElement)
 	{
-		if (numElements  >= allocMemory)
+		if (numElements >= allocMemory)
 		{
 			Reallocate(allocMemory + DYN_ARRAY_BLOCK_SIZE);
 		}
@@ -74,6 +74,9 @@ public:
 			value = data[--numElements];
 			return true;
 		}
+		else
+			value = NULL;
+
 		return false;
 	}
 
@@ -81,13 +84,21 @@ public:
 	const TYPE* Peek(const unsigned int index)const
 	{
 		TYPE* ret = NULL;
-		
+
 		if (index < numElements)
 			return ret = &data[index];
 
 		return ret;
 	}
 
+	const TYPE PeekLast() const
+	{
+		if (numElements >= 1)
+		{
+			return data[numElements - 1];
+		}
+		return NULL;
+	}
 	//other util methods
 	unsigned int GetCapacity() const
 	{
@@ -104,7 +115,7 @@ public:
 		numElements = 0;
 	}
 
-	
+
 };
 
 #endif // !_STACK_H_

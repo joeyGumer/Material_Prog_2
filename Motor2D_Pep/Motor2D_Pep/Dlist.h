@@ -1,7 +1,7 @@
 #ifndef _DLIST_H_
 #define _DLIST_H_
 
-#include <assert.h>
+#include <stdlib.h>
 
 template<class TYPE>
 struct Node
@@ -18,7 +18,7 @@ struct Node
 };
 
 template<class TYPE>
-class cDlist
+class Dlist
 {
 
 public:
@@ -34,7 +34,7 @@ public:
 	/*
 	Constructor
 	*/
-	inline cDlist()
+	inline Dlist()
 	{
 		start = end = NULL;
 		size = 0;
@@ -42,7 +42,7 @@ public:
 	/*
 	Destructor
 	*/
-	~cDlist()
+	~Dlist()
 	{
 		Clear();
 	}
@@ -51,11 +51,11 @@ public:
 	Methods
 	*/
 	//Add
-	TYPE Add(const TYPE& newValue)
+	int Add(const TYPE& newValue)
 	{
 		Node<TYPE>* newNode;
 		newNode = new Node<TYPE>(newValue);
-		
+
 		if (start == NULL)
 		{
 			start = end = newNode;
@@ -103,7 +103,7 @@ public:
 				end = start = NULL;
 			}
 		}
-		
+
 		delete[] delNode;
 		size--;
 		return (true);
@@ -138,7 +138,7 @@ public:
 	{
 		return start;
 	}
-	
+
 	Node<TYPE>* GetLast() const
 	{
 		return end;
@@ -148,7 +148,7 @@ public:
 	{
 		Node<TYPE>* tmp = start;
 		unsigned int counter = 0;
-		
+
 		while (counter != index && tmp != NULL)
 		{
 			tmp = tmp->next;
@@ -160,7 +160,7 @@ public:
 
 		return NULL;
 	}
-	
+
 	/*
 	operator
 	*/
@@ -182,9 +182,7 @@ public:
 			tmp = tmp->next;
 		}
 
-		ASSERT(tmp);
-
-		return(tmp->data);
+		return(tmp->value);
 	}
 
 	/*
@@ -194,18 +192,18 @@ public:
 	{
 		Node<TYPE>* tmp = GetByIndex(index);
 		Node<TYPE>* tmp2;
-		
+
 		unsigned int counter = 0;
-		
+
 		while (counter != delSize && tmp != NULL)
 		{
 			tmp2 = tmp->next;
 			Delete(tmp);
 			tmp = tmp2;
-			
+
 			counter++;
 		}
-		
+
 		return counter;
 	}
 };

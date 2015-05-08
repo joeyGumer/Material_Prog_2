@@ -6,7 +6,7 @@ Class point2D
 #define _POINT2D_H_
 
 template <class TYPE>
-class cPoint2D
+class Point2D
 {
 public:
 
@@ -16,18 +16,18 @@ public:
 	operators
 	*/
 	//gives a new result
-	cPoint2D operator + (const cPoint2D& p)
+	Point2D operator + (const Point2D& p)
 	{
-		cPoint2D ret;
+		Point2D ret;
 
 		ret.x = x + p.x
 		ret.y = y + p.y
 
 		return ret;
 	}
-	cPoint2D operator - (const cPoint2D& p)
+	Point2D operator - (const Point2D& p)
 	{
-		cPoint2D ret;
+		Point2D ret;
 
 		ret.x = x - p.x
 		ret.y = y - p.y
@@ -36,7 +36,7 @@ public:
 	}
 	
 	//modifies the actual point
-	const cPoint2D& operator += (const cPoint2D& p)
+	const Point2D& operator += (const Point2D& p)
 	{
 		x += p.x;
 		y += p.y;
@@ -44,7 +44,7 @@ public:
 		return(*this);
 
 	}
-	const cPoint2D& operator -= (const cPoint2D& p)
+	const Point2D& operator -= (const Point2D& p)
 	{
 		x -= p.x;
 		y -= p.y;
@@ -53,11 +53,11 @@ public:
 	}
 	
 	//compares
-	bool operator == (const cPoint2D& p)
+	bool operator == (const Point2D& p)
 	{
 		return (x == p.x && y == p.y);
 	}
-	bool operator != (const cPoint2D& p)
+	bool operator != (const Point2D& p)
 	{
 		return (x != p.x || y != p.y);
 	}
@@ -83,7 +83,7 @@ public:
 		y = -y;
 	}
 
-	TYPE DistanceTo(const cPoint2D& p) const
+	TYPE DistanceTo(const Point2D& p) const
 	{
 		TYPE dX = x - p.x;
 		TYPE dY = y - p.y;

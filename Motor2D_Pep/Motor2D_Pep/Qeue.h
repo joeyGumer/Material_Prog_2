@@ -17,7 +17,7 @@ struct Node
 };
 
 template<class TYPE>
-class cQeue
+class Qeue
 {
 
 public:
@@ -33,7 +33,7 @@ public:
 	/*
 	Constructor
 	*/
-	inline cQeue()
+	inline Qeue()
 	{
 		end = start = NULL;
 		size = 0;
@@ -41,7 +41,7 @@ public:
 	/*
 	Destructor
 	*/
-	~cQeue()
+	~Qeue()
 	{
 		Clear();
 	}

@@ -23,26 +23,112 @@ namespace UnitTest1
 		// TREE -------------------------------------------
 		TEST_METHOD(TreeAdd)
 		{
-			Tree<int> tree(0);
+			Tree<int> tree(1);
 
-			tree.Add(100);
-			tree.Add(200);
-			tree.Add(300);
+			Assert::AreEqual((int)tree.rootNode->data, 1);
 
-			Assert::AreEqual((int)tree.rootNode->data, 0);
-			Assert::AreEqual((int)tree.rootNode->data, 100);
+			tree.Add(2);
+			tree.Add(3);
 
-			tree.Add(101, 100);
-			tree.Add(102, 100);
-			tree.Add(103, 100);
+			Assert::AreEqual((int)tree.rootNode->sons.start->value->data, 2);
+			Assert::AreEqual((int)tree.rootNode->sons.end->value->data, 3);
 
-			tree.Add(210, 200);
-			tree.Add(220, 200);
+			tree.Add(4, 2);
+			tree.Add(5, 2);
 
-			tree.Add(221, 220);
+			Assert::AreEqual((int)tree.rootNode->sons.start->value->sons.start->value->data, 4);
+			Assert::AreEqual((int)tree.rootNode->sons.start->value->sons.end->value->data, 5);
+		}
 
-			// Just do not test that we run forever because of the recursion
-			Assert::AreEqual(1, 1);
+		TEST_METHOD(TreePreOrder)
+		{
+			Tree<char> tree('F');
+
+			tree.Add('B', 'F');
+			tree.Add('G', 'F');
+			tree.Add('A', 'B');
+			tree.Add('D', 'B');
+			tree.Add('X', 'B');
+			tree.Add('C', 'D');
+			tree.Add('E', 'D');
+			tree.Add('I', 'G');
+			tree.Add('H', 'I');
+
+			Dlist<tNode<char>*> list;
+			tree.PreOrderRecursive(&list);
+
+			Assert::AreEqual((int)list.GetCapacity(), 10);
+
+			Assert::AreEqual((char)list[0]->data, 'F');
+			Assert::AreEqual((char)list[1]->data, 'B');
+			Assert::AreEqual((char)list[2]->data, 'A');
+			Assert::AreEqual((char)list[3]->data, 'D');
+			Assert::AreEqual((char)list[4]->data, 'C');
+			Assert::AreEqual((char)list[5]->data, 'E');
+			Assert::AreEqual((char)list[6]->data, 'X');
+			Assert::AreEqual((char)list[7]->data, 'G');
+			Assert::AreEqual((char)list[8]->data, 'I');
+			Assert::AreEqual((char)list[9]->data, 'H');
+		}
+
+
+		TEST_METHOD(TreePostOrder)
+		{
+			Tree<char> tree('F');
+
+			tree.Add('B', 'F');
+			tree.Add('G', 'F');
+			tree.Add('A', 'B');
+			tree.Add('D', 'B');
+			tree.Add('C', 'D');
+			tree.Add('E', 'D');
+			tree.Add('I', 'G');
+			tree.Add('H', 'I');
+
+			Dlist<tNode<char>*> list;
+			tree.PostOrderRecursive(&list);
+
+			Assert::AreEqual((int)list.GetCapacity(), 9);
+
+			Assert::AreEqual((char)list[0]->data, 'A');
+			Assert::AreEqual((char)list[1]->data, 'C');
+			Assert::AreEqual((char)list[2]->data, 'E');
+			Assert::AreEqual((char)list[3]->data, 'D');
+			Assert::AreEqual((char)list[4]->data, 'B');
+			Assert::AreEqual((char)list[5]->data, 'H');
+			Assert::AreEqual((char)list[6]->data, 'I');
+			Assert::AreEqual((char)list[7]->data, 'G');
+			Assert::AreEqual((char)list[8]->data, 'F');
+		}
+
+		TEST_METHOD(TreeInOrder)
+		{
+			Tree<char> tree('F');
+
+			tree.Add('B', 'F');
+			tree.Add('G', 'F');
+			tree.Add('A', 'B');
+			tree.Add('D', 'B');
+			tree.Add('C', 'D');
+			tree.Add('E', 'D');
+			tree.Add('I', 'G');
+			tree.Add('H', 'I');
+
+			Dlist<tNode<char>*> list;
+			tree.InOrderRecursive(&list);
+
+			Assert::AreEqual((int)list.GetCapacity(), 9);
+
+			Assert::AreEqual((char)list[0]->data, 'A');
+			Assert::AreEqual((char)list[1]->data, 'B');
+
+			Assert::AreEqual((char)list[2]->data, 'C');
+			Assert::AreEqual((char)list[3]->data, 'D');
+			Assert::AreEqual((char)list[4]->data, 'E');
+			Assert::AreEqual((char)list[5]->data, 'F');
+			Assert::AreEqual((char)list[6]->data, 'G');
+			Assert::AreEqual((char)list[7]->data, 'I');
+			Assert::AreEqual((char)list[8]->data, 'H');
 		}
 
 		TEST_METHOD(TreePreOrderIterative)
@@ -59,8 +145,8 @@ namespace UnitTest1
 			tree.Add('I', 'G');
 			tree.Add('H', 'I');
 
-			cDlist<tNode<char>*> list;
-			
+			Dlist<tNode<char>*> list;
+
 			tree.PreOrderIterative(&list);
 
 			Assert::AreEqual((int)list.GetCapacity(), 10);
@@ -79,7 +165,7 @@ namespace UnitTest1
 
 		TEST_METHOD(TreePostOrderIterative)
 		{
-			p2Tree<char> tree('F');
+			Tree<char> tree('F');
 
 			tree.Add('B', 'F');
 			tree.Add('G', 'F');
@@ -90,10 +176,10 @@ namespace UnitTest1
 			tree.Add('I', 'G');
 			tree.Add('H', 'I');
 
-			p2List<p2TreeNode<char>*> list;
+			Dlist<tNode<char>*> list;
 			tree.PostOrderIterative(&list);
 
-			Assert::AreEqual((int)list.count(), 9);
+			Assert::AreEqual((int)list.GetCapacity(), 9);
 
 			Assert::AreEqual((char)list[0]->data, 'A');
 			Assert::AreEqual((char)list[1]->data, 'C');
@@ -108,7 +194,7 @@ namespace UnitTest1
 
 		TEST_METHOD(TreeInOrderIterative)
 		{
-			p2Tree<char> tree('F');
+			Tree<char> tree('F');
 
 			tree.Add('B', 'F');
 			tree.Add('G', 'F');
@@ -119,10 +205,10 @@ namespace UnitTest1
 			tree.Add('I', 'G');
 			tree.Add('H', 'I');
 
-			p2List<p2TreeNode<char>*> list;
+			Dlist<tNode<char>*> list;
 			tree.InOrderIterative(&list);
 
-			Assert::AreEqual((int)list.count(), 9);
+			Assert::AreEqual((int)list.GetCapacity(), 9);
 
 			Assert::AreEqual((char)list[0]->data, 'A');
 			Assert::AreEqual((char)list[1]->data, 'B');
@@ -135,99 +221,39 @@ namespace UnitTest1
 			Assert::AreEqual((char)list[8]->data, 'H');
 		}
 
-		TEST_METHOD(TreePreOrder)
+		TEST_METHOD(Clear)
 		{
-			p2Tree<char> tree('F');
+			Tree<char> tree('F');
 
 			tree.Add('B', 'F');
 			tree.Add('G', 'F');
 			tree.Add('A', 'B');
 			tree.Add('D', 'B');
-			tree.Add('X', 'B');
 			tree.Add('C', 'D');
 			tree.Add('E', 'D');
 			tree.Add('I', 'G');
 			tree.Add('H', 'I');
 
-			p2List<p2TreeNode<char>*> list;
-			tree.PreOrderRecursive(&list);
+			tree.Clear('B');
 
-			Assert::AreEqual((int)list.count(), 10);
 
+			Dlist<tNode<char>*> list;
+
+			tree.PreOrderIterative(&list);
+
+			Assert::IsTrue(list.GetCapacity() == 4);
 			Assert::AreEqual((char)list[0]->data, 'F');
-			Assert::AreEqual((char)list[1]->data, 'B');
-			Assert::AreEqual((char)list[2]->data, 'A');
-			Assert::AreEqual((char)list[3]->data, 'D');
-			Assert::AreEqual((char)list[4]->data, 'C');
-			Assert::AreEqual((char)list[5]->data, 'E');
-			Assert::AreEqual((char)list[6]->data, 'X');
-			Assert::AreEqual((char)list[7]->data, 'G');
-			Assert::AreEqual((char)list[8]->data, 'I');
-			Assert::AreEqual((char)list[9]->data, 'H');
-		}
+			Assert::AreEqual((char)list[1]->data, 'G');
+			Assert::AreEqual((char)list[2]->data, 'I');
+			Assert::AreEqual((char)list[3]->data, 'H');
 
-		TEST_METHOD(TreePostOrder)
-		{
-			p2Tree<char> tree('F');
 
-			tree.Add('B', 'F');
-			tree.Add('G', 'F');
-			tree.Add('A', 'B');
-			tree.Add('D', 'B');
-			tree.Add('C', 'D');
-			tree.Add('E', 'D');
-			tree.Add('I', 'G');
-			tree.Add('H', 'I');
-
-			p2List<p2TreeNode<char>*> list;
-			tree.PostOrderRecursive(&list);
-
-			Assert::AreEqual((int)list.count(), 9);
-
-			Assert::AreEqual((char)list[0]->data, 'A');
-			Assert::AreEqual((char)list[1]->data, 'C');
-			Assert::AreEqual((char)list[2]->data, 'E');
-			Assert::AreEqual((char)list[3]->data, 'D');
-			Assert::AreEqual((char)list[4]->data, 'B');
-			Assert::AreEqual((char)list[5]->data, 'H');
-			Assert::AreEqual((char)list[6]->data, 'I');
-			Assert::AreEqual((char)list[7]->data, 'G');
-			Assert::AreEqual((char)list[8]->data, 'F');
-		}
-
-		TEST_METHOD(TreeInOrder)
-		{
-			p2Tree<char> tree('F');
-
-			tree.Add('B', 'F');
-			tree.Add('G', 'F');
-			tree.Add('A', 'B');
-			tree.Add('D', 'B');
-			tree.Add('C', 'D');
-			tree.Add('E', 'D');
-			tree.Add('I', 'G');
-			tree.Add('H', 'I');
-
-			p2List<p2TreeNode<char>*> list;
-			tree.InOrderRecursive(&list);
-
-			Assert::AreEqual((int)list.count(), 9);
-
-			Assert::AreEqual((char)list[0]->data, 'A');
-			Assert::AreEqual((char)list[1]->data, 'B');
-			Assert::AreEqual((char)list[2]->data, 'C');
-			Assert::AreEqual((char)list[3]->data, 'D');
-			Assert::AreEqual((char)list[4]->data, 'E');
-			Assert::AreEqual((char)list[5]->data, 'F');
-			Assert::AreEqual((char)list[6]->data, 'G');
-			Assert::AreEqual((char)list[7]->data, 'I');
-			Assert::AreEqual((char)list[8]->data, 'H');
 		}
 
 		//STACK------------------------------------------------
 		TEST_METHOD(Stack_test)
 		{
-			cStack<int> lifo;
+			Stack<int> lifo;
 
 			lifo.Push(10);
 			lifo.Push(20);
@@ -278,7 +304,7 @@ namespace UnitTest1
 			p.point.y = 10.0f;
 			p.speed.x = 2.0f;
 			p.speed.y = 0.0f;
-			cPoint2D<float> current = p.GetCurrentPosition(3.0f);
+			Point2D<float> current = p.GetCurrentPosition(3.0f);
 			Assert::AreEqual((float)16.0f, current.x, 0.00001f);
 			Assert::AreEqual((float)10.0f, current.y, 0.00001f);
 		}
@@ -300,7 +326,7 @@ namespace UnitTest1
 		// P2List delete few nodes ----------------------------------------
 		TEST_METHOD(p2List_delNodes_mid)
 		{
-			cDlist<int> l;
+			Dlist<int> l;
 			l.Add(1);
 			l.Add(2);
 			l.Add(3);
@@ -313,7 +339,7 @@ namespace UnitTest1
 		// P2List delete few nodes ----------------------------------------
 		TEST_METHOD(p2List_delNodes_begin)
 		{
-			cDlist<int> l;
+			Dlist<int> l;
 			l.Add(1);
 			l.Add(2);
 			l.Add(3);
@@ -326,7 +352,7 @@ namespace UnitTest1
 		// P2List delete few nodes ----------------------------------------
 		TEST_METHOD(p2List_delNodes_end)
 		{
-			cDlist<int> l;
+			Dlist<int> l;
 			l.Add(1);
 			l.Add(2);
 			l.Add(3);
@@ -544,13 +570,13 @@ namespace UnitTest1
 		// p2List --------------------------------------------
 		TEST_METHOD(ListAdd)
 		{
-			cDlist<int> mylist;
+			Dlist<int> mylist;
 			Assert::AreEqual((int)mylist.Add(5), 1);
 		}
 
 		TEST_METHOD(ListDel)
 		{
-			cDlist<int> mylist;
+			Dlist<int> mylist;
 			mylist.Add(5);
 			Assert::IsTrue(mylist.Delete(mylist.start));
 			Assert::AreEqual((int)mylist.GetCapacity(), 0);
@@ -558,7 +584,7 @@ namespace UnitTest1
 
 		TEST_METHOD(ListClear)
 		{
-			cDlist<int> mylist;
+			Dlist<int> mylist;
 			mylist.Add(1); mylist.Add(2); mylist.Add(3);
 			mylist.Clear();
 			Assert::AreEqual((int)mylist.GetCapacity(), 0);
