@@ -6,6 +6,12 @@
 
 int main(int argc, char** argv)
 {
+	cString a("1234567890");
+	cString b(50);
+	b = "hola";
+	a.Prefix(b);
+	b.Prefix("1234567890");
+	
 	return (0);
 }
 

@@ -1,9 +1,12 @@
-#ifndef _STRING_H_
+﻿#ifndef _STRING_H_
 #define _STRING_H_
 
 #include <string.h>//needed for the string functions as strcpy_s, strcmp, strcat_s
 #include <stdio.h>//needed for the printf_s
 #include <stdarg.h>//neded for the ,... at the format constructor
+#include <assert.h>
+
+#define TMP_STRING_SIZE	4096
 
 class cString
 {
@@ -225,26 +228,28 @@ public:
 	/*
 	Methods for exercise 4
 	*/
-	const void Prefix(const cString& c)
+	const cString Prefix(const cString& c)
 	{
-		unsigned int newSize = Length() + c.Length() + 1;
+		assert(Length() + c.Length() < TMP_STRING_SIZE);
 		
-		char* tmp = str;
-		Alloc(newSize);
-
-		strcpy_s(str, c.Length(), c.str);
-		strcat_s(str, size, tmp);
-
-		delete[] tmp;
+		char tmp[TMP_STRING_SIZE];
+			
+		strcpy_s(tmp, TMP_STRING_SIZE, c.str);
+		strcat_s(tmp, TMP_STRING_SIZE, str);
+		unsigned int need_size = strlen(tmp) + 1;
+			
+		if (need_size > size)
+		{
+			delete[] str;
+				Alloc(need_size);
+		}
+		strcpy_s(str, size, tmp);
 		
-		
-
+		return(*this);
 	}
 	
-	const void Prefix(const char* c)
+	const cString Prefix(const char* c)
 	{
-		if (c != NULL)
-		{
 			unsigned int newSize = Length() + strlen(c) + 1;
 			
 			char* tmp = str;
@@ -254,8 +259,8 @@ public:
 			strcat_s(str, size, tmp);
 
 			delete[] tmp;
-		}
-
+		
+			return(*this);
 	}
 };
 

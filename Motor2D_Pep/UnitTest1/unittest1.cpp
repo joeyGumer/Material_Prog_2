@@ -273,7 +273,7 @@ namespace UnitTest1
 		//QEUE-------------------------------------------------
 		TEST_METHOD(Qeue_test)
 		{
-			cQeue<int> fifo;
+			Qeue<int> fifo;
 
 
 			fifo.Push(11);
@@ -373,14 +373,6 @@ namespace UnitTest1
 			Assert::AreEqual(strcmp(a.GetString(), "hola1234567890"), 0);
 			Assert::AreEqual(strcmp(b.GetString(), "1234567890hola"), 0);
 		}
-
-
-
-		
-		
-		
-		
-		
 		
 		/*
 		Unit test previous to the examen
