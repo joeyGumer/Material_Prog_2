@@ -144,8 +144,8 @@ public:
 		return wasted;
 	}
 
-	//Bubble Algorithm
-	unsigned int BubbleSort()
+	//Sort Algorithms
+	unsigned int BubbleSort()//the most simple
 	{
 		unsigned int counter = 0;
 		bool change = true;
@@ -167,12 +167,12 @@ public:
 		return counter;
 	}
 
-	unsigned int BubbleSortOptimized()
+	unsigned int BubbleSortOptimized()//the previous but optimized, cause the last elements dosen't get count on each itineration
 	{
 		unsigned int counter = 0;
 		bool change = true;
 		int peeks = numElements - 1;//for the optimization
-		
+
 		while (change == true)
 		{
 			change = false;
@@ -189,7 +189,41 @@ public:
 		}
 		return counter;
 	}
-	
+
+	unsigned int CocktailSort()
+	{
+		unsigned int counter = 0;
+		bool change = true;
+		int right = 0;
+		int left = numElements - 1;
+
+		while (change == true && left > right)
+		{
+			change = false;
+			for (int i = right; i < left; i++)
+			{
+				counter++;
+				if (data[i] > data[i + 1])
+				{
+					Swap(data[i], data[i + 1]);
+					change = true;
+				}
+			}
+			left--;
+
+			for (int j = left; j > right; j--)
+			{
+				counter++;
+				if (data[j] < data[j - 1])
+				{
+					Swap(data[j], data[j - 1]);
+					change = true;
+				}
+			}
+			right++;
+		}
+		return counter;
+	}
 
 };
 

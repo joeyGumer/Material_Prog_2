@@ -378,6 +378,26 @@ namespace UnitTest1
 		Unit test previous to the examen
 		*/
 		// DYN ARRAY -----------------------------------------
+		TEST_METHOD(DynArray_CocktailSort)
+		{
+			DynArray<int> array;
+			array.PushBack(5);
+			array.PushBack(4);
+			array.PushBack(10);
+			array.PushBack(8);
+			array.PushBack(3);
+
+			Assert::AreEqual((int)array.Count(), 5);
+
+			array.CocktailSort();
+
+			Assert::AreEqual(array[0], 3);
+			Assert::AreEqual(array[1], 4);
+			Assert::AreEqual(array[2], 5);
+			Assert::AreEqual(array[3], 8);
+			Assert::AreEqual(array[4], 10);
+		}
+
 		TEST_METHOD(DynArray_Bubble)
 		{
 			DynArray<int> array;
