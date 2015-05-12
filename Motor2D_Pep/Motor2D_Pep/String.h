@@ -227,7 +227,7 @@ private:
 public:
 	/*
 	Methods for exercise 4
-	*/
+	
 	const cString Prefix(const cString& c)
 	{
 		assert(Length() + c.Length() < TMP_STRING_SIZE);
@@ -261,7 +261,7 @@ public:
 			delete[] tmp;
 		
 			return(*this);
-	}
+	}*/
 };
 
 #endif //!_

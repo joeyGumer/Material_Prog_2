@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include "Swap.h"
 
 #define DYN_ARRAY_BLOCK_SIZE 16
 
@@ -142,6 +143,54 @@ public:
 
 		return wasted;
 	}
+
+	//Bubble Algorithm
+	unsigned int BubbleSort()
+	{
+		unsigned int counter = 0;
+		bool change = true;
+		//for the optimization
+
+		while (change == true)
+		{
+			change = false;
+			for (int i = 0; i < numElements - 1; i++)
+			{
+				counter++;
+				if (data[i]>data[i + 1])
+				{
+					Swap(data[i], data[i + 1]);
+					change = true;
+				}
+			}
+		}
+		return counter;
+	}
+
+	unsigned int BubbleSortOptimized()
+	{
+		unsigned int counter = 0;
+		bool change = true;
+		int peeks = numElements - 1;//for the optimization
+		
+		while (change == true)
+		{
+			change = false;
+			for (int i = 0; i < peeks; i++)
+			{
+				counter++;
+				if (data[i]>data[i + 1])
+				{
+					Swap(data[i], data[i + 1]);
+					change = true;
+				}
+			}
+			peeks--;
+		}
+		return counter;
+	}
+	
+
 };
 
 #endif // !_DYNAMIC_ARRAY_H_

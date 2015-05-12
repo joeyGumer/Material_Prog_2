@@ -66,11 +66,13 @@
   <ItemGroup>
     <ClInclude Include="Dlist.h" />
     <ClInclude Include="DynArray.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Qeue.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="String.h" />
+    <ClInclude Include="Swap.h" />
     <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
