@@ -225,6 +225,34 @@ public:
 		return counter;
 	}
 
+	unsigned int CombSort()
+	{
+
+		bool change = true;
+		int gap = numElements - 1;
+		unsigned int counter = 0;
+
+		while (gap > 1 || change == true)
+		{
+			gap /= 1.3;
+
+			if (gap < 1)
+				gap = 1;
+			
+			change = false;
+			for (int i = 0; i + gap < numElements; i++)
+			{
+				counter++;
+				if (data[i]>data[i + gap])
+				{
+					Swap(data[i], data[i + gap]);
+					change = true;
+				}
+			}
+		}
+		return counter;
+	}
+
 };
 
 #endif // !_DYNAMIC_ARRAY_H_
