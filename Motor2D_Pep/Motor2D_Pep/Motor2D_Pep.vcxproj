@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClInclude Include="Dlist.h" />
     <ClInclude Include="DynArray.h" />
+    <ClInclude Include="Circle.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Projectile.h" />

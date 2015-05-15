@@ -528,6 +528,16 @@ namespace UnitTest1
 		}
 		
 		// p2SString -----------------------------------------
+		TEST_METHOD(SString_Trim)
+		{
+			cString s("  Hola  ");
+			Assert::AreEqual((int)s.Length(), 8);
+
+			s.Trim();
+
+			Assert::AreEqual((int)s.Length(), 4);
+		}
+
 		TEST_METHOD(SString_empty_ctor)
 		{
 			cString s;

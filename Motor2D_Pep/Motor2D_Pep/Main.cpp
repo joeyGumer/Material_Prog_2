@@ -3,11 +3,12 @@
 #include "Dlist.h"
 #include "DynArray.h"
 #include "Log.h"
+#include <assert.h>
 
 
-int main(int argc, char** argv)
+void main(int argc, char** argv)
 {
-	DynArray<int> array1, array2, array3, array4;
+	/*DynArray<int> array1, array2, array3, array4;
 	int r;
 	for (int i = 0; i < 10000; i++)
 	{
@@ -28,7 +29,7 @@ int main(int argc, char** argv)
 			LOG("No se ha ordenado correctamente");
 	}
 	
-	return array1.BubbleSort();
+	return array1.BubbleSort();*/
 }
 
 //factorial (!4 = 24)

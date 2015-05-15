@@ -12,6 +12,8 @@ public:
 
 	TYPE x, y;
 
+public:
+	
 	/*
 	operators
 	*/

@@ -192,6 +192,30 @@ public:
 	}
 
 	/*
+	others
+	*/
+	void Trim()//arreglar aixo i revisar clase string//per casa, posar arguments (si es vol borrar per la dreta, per l'esquerra, o algun ca en concretracter)
+	{
+		int newSize = size-2;
+		int space = 0;
+		
+		while (str[newSize] == ' ')
+			newSize--;
+		while (str[space] == ' ')
+			space++;
+
+		for (int i = 0, j= space; j<=newSize; i++, j++)
+		{
+			str[i] = str[j];
+		}
+
+		newSize--;
+
+		str[newSize] = '\0';
+
+		size = newSize;
+	}
+	/*
 	Utils
 	*/
 
