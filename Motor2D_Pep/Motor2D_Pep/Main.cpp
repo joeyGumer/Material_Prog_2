@@ -8,6 +8,14 @@
 
 void main(int argc, char** argv)
 {
+	cString s("Hola mundo");
+	
+
+	s.Substitute("Hola", "Pepito");
+	LOG("%s", s);
+	s.Substitute("Pepito", "PC");
+	LOG("%s", s);
+
 	/*DynArray<int> array1, array2, array3, array4;
 	int r;
 	for (int i = 0; i < 10000; i++)

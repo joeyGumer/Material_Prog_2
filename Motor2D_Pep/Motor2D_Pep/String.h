@@ -79,8 +79,8 @@ public:
 	*/
 	~cString()
 	{
-		if (str != NULL)
-			delete[] str;
+		/*if (str != NULL)
+			delete[] str;*/
 	}
 
 	/*
@@ -194,7 +194,44 @@ public:
 	/*
 	others
 	*/
-	void Trim()//arreglar aixo i revisar clase string//per casa, posar arguments (si es vol borrar per la dreta, per l'esquerra, o algun ca en concretracter)
+	//prefix
+	const cString Prefix(const cString& c)
+	{
+		assert(Length() + c.Length() < TMP_STRING_SIZE);
+
+		char tmp[TMP_STRING_SIZE];
+
+		strcpy_s(tmp, TMP_STRING_SIZE, c.str);;
+		strcat_s(tmp, TMP_STRING_SIZE, str);
+		unsigned int need_size = strlen(tmp) + 1;
+
+		if (need_size > size)
+		{
+			delete[] str;
+			Alloc(need_size);
+		}
+		strcpy_s(str, size, tmp);
+
+		return(*this);
+	}
+
+	const cString Prefix(const char* c)
+	{
+		unsigned int newSize = Length() + strlen(c) + 1;
+
+		char* tmp = str;
+		Alloc(newSize);
+
+		strcpy_s(str, strlen(c), c);
+		strcat_s(str, size, tmp);
+
+		delete[] tmp;
+
+		return(*this);
+	}
+
+	//trim
+	void Trim()
 	{
 		int newSize = size-2;
 		int space = 0;
@@ -205,15 +242,67 @@ public:
 			space++;
 
 		for (int i = 0, j= space; j<=newSize; i++, j++)
-		{
 			str[i] = str[j];
+		
+		size = newSize;
+		str[size-1] = '\0';
+	}
+
+	//Substiute
+
+	bool Substitute(char* c1, char* c2)
+	{ 
+		int startSub = 0;
+		int endSub = -1;
+
+		int dif = strlen(c2) - strlen(c1);
+		int oldLength = Length();
+
+		//find the world
+		for (int i = 0; i<Length(); i++)
+		{
+			if (str[i] == c1[0])
+			{
+				startSub = i;
+				for (int j = 1; str[i+1] == c1[j], j < strlen(c1); j++, i++)
+					if (j == strlen(c1) - 1)
+						endSub = i+1;
+			}
+		}
+		//if the word iszn't in the string, out false
+		if (endSub == -1)
+			return false;
+
+		//sees if the new string will be bigger or smaller, so to do the right thing in each case
+		if (dif > 0)
+		{
+			char* tmp = str;
+
+			Alloc(size + dif);
+			strcpy_s(str, Length(), tmp);
+
+			for (int i = oldLength; i > endSub; i--)
+			{
+				str[i + dif] = str[i];
+			}
+		}
+		else
+		{
+			for (int i = endSub + 1; i < oldLength; i++)
+			{
+				str[i + dif] = str[i];
+			}
+			str[oldLength + dif] = '\0';
+			size += dif;
 		}
 
-		newSize--;
+		//inputs the new word in the string
+		for (int i = 0; i < strlen(c2); i++)
+		{
+			str[i + startSub] = c2[i];
+		}
 
-		str[newSize] = '\0';
-
-		size = newSize;
+		return true;
 	}
 	/*
 	Utils
@@ -242,50 +331,11 @@ public:
 private:
 
 	//changes the string size
-	void Alloc(unsigned int memSize)
+	void Alloc(int memSize)
 	{
 		size = memSize;
 		str = new char[size];
 	}
-
-public:
-	/*
-	Methods for exercise 4
-	
-	const cString Prefix(const cString& c)
-	{
-		assert(Length() + c.Length() < TMP_STRING_SIZE);
-		
-		char tmp[TMP_STRING_SIZE];
-			
-		strcpy_s(tmp, TMP_STRING_SIZE, c.str);
-		strcat_s(tmp, TMP_STRING_SIZE, str);
-		unsigned int need_size = strlen(tmp) + 1;
-			
-		if (need_size > size)
-		{
-			delete[] str;
-				Alloc(need_size);
-		}
-		strcpy_s(str, size, tmp);
-		
-		return(*this);
-	}
-	
-	const cString Prefix(const char* c)
-	{
-			unsigned int newSize = Length() + strlen(c) + 1;
-			
-			char* tmp = str;
-			Alloc(newSize);
-
-			strcpy_s(str, strlen(c), c);
-			strcat_s(str, size, tmp);
-
-			delete[] tmp;
-		
-			return(*this);
-	}*/
 };
 
 #endif //!_
