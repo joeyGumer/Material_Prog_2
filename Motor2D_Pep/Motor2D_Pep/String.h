@@ -260,15 +260,17 @@ public:
 
 		//find the world
 		for (int i = 0; i<Length(); i++)
-		{
 			if (str[i] == c1[0])
 			{
 				startSub = i;
-				for (int j = 1; str[i+1] == c1[j], j < strlen(c1); j++, i++)
-					if (j == strlen(c1) - 1)
-						endSub = i+1;
+				if (strlen(c1) == 1)
+					endSub = i;
+				else
+					for (int j=1; str[i+1] == c1[j], j < strlen(c1); j++, i++)
+						if (j == strlen(c1) - 1)
+							endSub = i+1;
 			}
-		}
+		
 		//if the word iszn't in the string, out false
 		if (endSub == -1)
 			return false;
@@ -282,25 +284,22 @@ public:
 			strcpy_s(str, Length(), tmp);
 
 			for (int i = oldLength; i > endSub; i--)
-			{
 				str[i + dif] = str[i];
-			}
+			
 		}
 		else
 		{
 			for (int i = endSub + 1; i < oldLength; i++)
-			{
 				str[i + dif] = str[i];
-			}
+			
 			str[oldLength + dif] = '\0';
 			size += dif;
 		}
 
 		//inputs the new word in the string
 		for (int i = 0; i < strlen(c2); i++)
-		{
 			str[i + startSub] = c2[i];
-		}
+		
 
 		return true;
 	}
