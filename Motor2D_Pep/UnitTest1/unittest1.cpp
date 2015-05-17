@@ -363,7 +363,7 @@ namespace UnitTest1
 			Assert::AreEqual((unsigned int)2, l.GetCapacity());
 		}
 		// String prefix ----------------------------------------
-		/*TEST_METHOD(String_prefix)
+		TEST_METHOD(String_prefix)
 		{
 			cString a("1234567890");
 			cString b(50);
@@ -372,7 +372,7 @@ namespace UnitTest1
 			b.Prefix("1234567890");
 			Assert::AreEqual(strcmp(a.GetString(), "hola1234567890"), 0);
 			Assert::AreEqual(strcmp(b.GetString(), "1234567890hola"), 0);
-		}*/
+		}
 		
 		/*
 		Unit test previous to the examen

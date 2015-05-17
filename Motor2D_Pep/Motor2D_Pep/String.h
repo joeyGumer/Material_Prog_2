@@ -217,15 +217,20 @@ public:
 
 	const cString Prefix(const char* c)
 	{
-		unsigned int newSize = Length() + strlen(c) + 1;
+		assert(Length() + strlen(c) < TMP_STRING_SIZE);
 
-		char* tmp = str;
-		Alloc(newSize);
+		char tmp[TMP_STRING_SIZE];
 
-		strcpy_s(str, strlen(c), c);
-		strcat_s(str, size, tmp);
+		strcpy_s(tmp, TMP_STRING_SIZE, c);;
+		strcat_s(tmp, TMP_STRING_SIZE, str);
+		unsigned int need_size = strlen(tmp) + 1;
 
-		delete[] tmp;
+		if (need_size > size)
+		{
+			delete[] str;
+			Alloc(need_size);
+		}
+		strcpy_s(str, size, tmp);
 
 		return(*this);
 	}
@@ -282,6 +287,7 @@ public:
 
 			Alloc(size + dif);
 			strcpy_s(str, Length(), tmp);
+			delete[] tmp;
 
 			for (int i = oldLength; i > endSub; i--)
 				str[i + dif] = str[i];

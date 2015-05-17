@@ -8,13 +8,12 @@
 
 void main(int argc, char** argv)
 {
-	cString s("Hola mundo");
+	cString a("1234567890");
+	cString b(50);
+	b = "hola";
+	a.Prefix(b);
+	b.Prefix("1234567890");
 	
-
-	s.Substitute("Hola", "Pepito");
-	LOG("%s", s);
-	s.Substitute("Pepito", "PC");
-	LOG("%s", s);
 
 	/*DynArray<int> array1, array2, array3, array4;
 	int r;
