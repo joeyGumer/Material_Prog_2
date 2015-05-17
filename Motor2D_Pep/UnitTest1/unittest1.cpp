@@ -6,6 +6,7 @@
 #include "..\Motor2D_Pep\Projectile.h"
 #include "..\Motor2D_Pep\Tree.h"
 #include "..\Motor2D_Pep\Stack.h"
+#include "..\Motor2D_Pep\Qeue.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -269,7 +270,7 @@ namespace UnitTest1
 			Assert::AreEqual((int)result, 40);
 			Assert::AreEqual((int)lifo.Count(), 3);
 		}
-		/*
+		
 		//QEUE-------------------------------------------------
 		TEST_METHOD(Qeue_test)
 		{
@@ -287,11 +288,11 @@ namespace UnitTest1
 			int result;
 			bool r = fifo.Pop(result);
 			
-			//
-			//Assert::AreEqual((int)result, 33);
-			//Assert::AreEqual((int)fifo.Count(), 2);
-			//
-		}*/
+			
+			Assert::AreEqual((int)result, 11);
+			Assert::AreEqual((int)fifo.Count(), 2);
+			
+		}
 
 		/*
 		Unit Test that are exercises from examn

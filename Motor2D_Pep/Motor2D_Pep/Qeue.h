@@ -2,14 +2,14 @@
 #define _QEUE_H_
 
 template<class TYPE>
-struct Node
+struct qNode
 {
 	TYPE value;
-	Node<TYPE>* next;
-	Node<TYPE>* prev;
+	qNode<TYPE>* next;
+	qNode<TYPE>* prev;
 	
 
-	inline Node<TYPE>(const TYPE& _value)
+	inline qNode<TYPE>(const TYPE& _value)
 	{
 		value = _value;
 		next = prev = NULL;
@@ -22,8 +22,8 @@ class Qeue
 
 public:
 
-	Node<TYPE>* start;
-	Node<TYPE>* end;
+	qNode<TYPE>* start;
+	qNode<TYPE>* end;
 
 private:
 
@@ -51,8 +51,8 @@ public:
 	*/
 	unsigned int Push(const TYPE& newValue)
 	{
-		Node<TYPE>* newNode;
-		newNode = new Node<TYPE>(newValue);
+		qNode<TYPE>* newNode;
+		newNode = new qNode<TYPE>(newValue);
 
 		if (start == NULL)
 		{
@@ -72,7 +72,7 @@ public:
 	{
 		if (end != NULL)
 		{
-			Node<TYPE>* tmp = end;
+			qNode<TYPE>* tmp = end;
 
 			end = tmp->prev;
 			end->next = NULL;
@@ -89,7 +89,7 @@ public:
 
 	const TYPE* Peek(const unsigned int index)const
 	{
-		Node<TYPE>* tmp = start;
+		qNode<TYPE>* tmp = start;
 		unsigned int counter = 0;
 
 		while (counter != index && tmp != NULL)
@@ -106,8 +106,8 @@ public:
 
 	void Clear()
 	{
-		Node<TYPE>* tmp = start;
-		Node<TYPE>* tmp2;
+		qNode<TYPE>* tmp = start;
+		qNode<TYPE>* tmp2;
 
 		while (tmp != NULL)
 		{
