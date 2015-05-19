@@ -379,6 +379,26 @@ namespace UnitTest1
 		Unit test previous to the examen
 		*/
 		// DYN ARRAY -----------------------------------------
+		TEST_METHOD(DynArray_Flip)
+		{
+			DynArray<int> array;
+			array.PushBack(1);
+			array.PushBack(2);
+			array.PushBack(3);
+			array.PushBack(4);
+			array.PushBack(5);
+
+			Assert::AreEqual((int)array.Count(), 5);
+
+			array.Flip();
+
+			Assert::AreEqual(array[0], 5);
+			Assert::AreEqual(array[1], 4);
+			Assert::AreEqual(array[2], 3);
+			Assert::AreEqual(array[3], 2);
+			Assert::AreEqual(array[4], 1);
+		}
+
 		TEST_METHOD(DynArray_CombSort)
 		{
 			DynArray<int> array;
@@ -647,6 +667,37 @@ namespace UnitTest1
 		}
 
 		// p2List --------------------------------------------
+		TEST_METHOD(ListBubbleSort)
+		{
+			Dlist<int> mylist;
+			
+			mylist.Add(5);
+			mylist.Add(4);
+			mylist.Add(10);
+			mylist.Add(8);
+			mylist.Add(3);
+
+			mylist.BubbleSort();
+
+			Assert::AreEqual((int)mylist[0], 3);
+			Assert::AreEqual((int)mylist[1], 4);
+			Assert::AreEqual((int)mylist[2], 5);
+			Assert::AreEqual((int)mylist[3], 8);
+			Assert::AreEqual((int)mylist[4], 10);
+
+		}
+
+		TEST_METHOD(ListNodeSwap)
+		{
+			Dlist<char> mylist;
+			
+			mylist.Add('A');
+			mylist.Add('B');
+			mylist.Add('C');
+			mylist.Add('D');
+			mylist.Add('E');
+		}
+
 		TEST_METHOD(ListAdd)
 		{
 			Dlist<int> mylist;

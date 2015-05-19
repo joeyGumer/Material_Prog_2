@@ -2,6 +2,7 @@
 #define _DLIST_H_
 
 #include <stdlib.h>
+#include <assert.h>
 
 template<class TYPE>
 struct Node
@@ -126,8 +127,47 @@ public:
 		size = 0;
 	}
 	/*
+	Sort
+	*/
+	unsigned int BubbleSort()
+	{
+		Node<TYPE>* tmp = start;
+		bool change = true;
+		unsigned int counter = 0;
+
+		while (change == true)
+		{
+			change = false;
+			for (int i = 0; i < size - 1; i++)
+			{
+				counter++;
+				if (tmp->value > tmp->next->value)
+				{
+					Swap(tmp->value, tmp->next->value);
+					change = true;
+				}
+				tmp = tmp->next;
+			}
+			tmp = start;
+		}
+
+		return counter;
+	}
+	/*
 	other utils
 	*/
+	//Comrpovar si esta ben fet
+	void NodeSwap(Node<TYPE>* a, Node<TYPE>* b)
+	{
+		Swap(a->next, b->next);
+		Swap(a->prev, b->prev);
+
+		a->next->prev = a;
+		b->next->prev = b;
+
+		a->prev->next = a;
+		b->prev->next = b;
+	}
 
 	unsigned int GetCapacity() const
 	{
@@ -164,25 +204,22 @@ public:
 	/*
 	operator
 	*/
-	TYPE& operator  [](const unsigned int index)
+	const TYPE& operator [] (const unsigned int index) const
 	{
-		long                  pos;
-		Node<TYPE>*   tmp;
-		pos = 0;
-		tmp = start;
+		Node<TYPE>* ret = GetByIndex(index);
 
-		while (tmp != NULL)
-		{
-			if (pos == index)
-			{
-				break;
-			}
+		assert(ret != NULL);
+		
+		return ret->value;
+	}
 
-			++pos;
-			tmp = tmp->next;
-		}
+	TYPE& operator [] (const unsigned int index) 
+	{
+		Node<TYPE>* ret = GetByIndex(index);
 
-		return(tmp->value);
+		assert(ret != NULL);
+
+		return ret->value;
 	}
 
 	/*

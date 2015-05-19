@@ -132,6 +132,12 @@ public:
 		numElements = 0; 
 	}
 
+	void Flip()
+	{
+			for (int i = 0, j = numElements - 1; i <= j; i++, j--)
+				Swap(data[i], data[j]);
+	}
+	
 	/*
 	Method for the exercise 2
 	*/
@@ -252,7 +258,8 @@ public:
 		}
 		return counter;
 	}
-
+	
+	
 };
 
 #endif // !_DYNAMIC_ARRAY_H_

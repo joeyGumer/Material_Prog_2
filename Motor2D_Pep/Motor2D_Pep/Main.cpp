@@ -45,3 +45,18 @@ int Factorial(int a)
 	return(a > 1) ? a = Factorial(a - 1) : 1;
 }
 
+//Arreglar aio
+int Fibonacci(const unsigned int index)
+{
+	int i = index;
+	
+	if (index > 0)
+	{
+		i--;
+		return Fibonacci(i - 1) + Fibonacci(i);
+	}
+	else
+		return 1;
+
+
+}
