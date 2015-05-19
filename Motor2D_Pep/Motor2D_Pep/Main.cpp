@@ -3,17 +3,23 @@
 #include "Dlist.h"
 #include "DynArray.h"
 #include "Log.h"
-#include <assert.h>
 
+
+int Fibonacci(const unsigned int index)
+{
+	int i = index;
+
+	if (index > 1)
+	{
+		return Fibonacci(i - 2) + Fibonacci(i - 1);
+	}
+	else
+		return 1;
+}
 
 void main(int argc, char** argv)
 {
-	cString a("1234567890");
-	cString b(50);
-	b = "hola";
-	a.Prefix(b);
-	b.Prefix("1234567890");
-	
+	LOG("%d ", Fibonacci(10))
 
 	/*DynArray<int> array1, array2, array3, array4;
 	int r;
@@ -45,18 +51,4 @@ int Factorial(int a)
 	return(a > 1) ? a = Factorial(a - 1) : 1;
 }
 
-//Arreglar aio
-int Fibonacci(const unsigned int index)
-{
-	int i = index;
-	
-	if (index > 0)
-	{
-		i--;
-		return Fibonacci(i - 1) + Fibonacci(i);
-	}
-	else
-		return 1;
 
-
-}
