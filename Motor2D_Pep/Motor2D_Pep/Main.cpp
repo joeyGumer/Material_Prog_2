@@ -7,11 +7,9 @@
 
 int Fibonacci(const unsigned int index)
 {
-	int i = index;
-
 	if (index > 1)
 	{
-		return Fibonacci(i - 2) + Fibonacci(i - 1);
+		return Fibonacci(index - 2) + Fibonacci(index - 1);
 	}
 	else
 		return 1;
