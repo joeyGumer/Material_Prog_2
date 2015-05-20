@@ -8,9 +8,8 @@
 int Fibonacci(const unsigned int index)
 {
 	if (index > 1)
-	{
 		return Fibonacci(index - 2) + Fibonacci(index - 1);
-	}
+	
 	else
 		return 1;
 }
