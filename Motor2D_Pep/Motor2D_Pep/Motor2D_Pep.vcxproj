@@ -64,9 +64,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Conjunt.h" />
     <ClInclude Include="Dlist.h" />
     <ClInclude Include="DynArray.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Projectile.h" />
@@ -74,6 +76,7 @@
     <ClInclude Include="Stack.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Swap.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
