@@ -60,6 +60,12 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files\Exercises</Filter>
     </ClInclude>
+    <ClInclude Include="StackList.h">
+      <Filter>Header Files\Exercises</Filter>
+    </ClInclude>
+    <ClInclude Include="QeueArray.h">
+      <Filter>Header Files\Exercises</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

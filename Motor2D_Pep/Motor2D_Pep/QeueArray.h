@@ -1,5 +1,5 @@
-#ifndef _STACK_H_
-#define _STACK_H_
+#ifndef _QeueArray_H_
+#define _QeueArray_H_
 
 #include <assert.h>
 #include <stdlib.h>
@@ -7,7 +7,7 @@
 #define DYN_ARRAY_BLOCK_SIZE 16
 
 template<class TYPE>
-class Stack
+class QeueArray
 {
 
 private:
@@ -19,17 +19,17 @@ private:
 public:
 
 	//Constructors
-	Stack() : data(NULL), allocMemory(0), numElements(0)
+	QeueArray() : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(DYN_ARRAY_BLOCK_SIZE);
 	}
-	Stack(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
+	QeueArray(const unsigned int memSize) : data(NULL), allocMemory(0), numElements(0)
 	{
 		Reallocate(memSize);
 	}
 
 	//Destructors
-	~Stack()
+	~QeueArray()
 	{
 		delete[] data;
 	}
@@ -71,12 +71,13 @@ public:
 	{
 		if (numElements > 0)
 		{
-			value = data[--numElements];
+			value = data[0];
+			for (int i = 0; i < numElements - 1; i++)
+				data[i] = data[i + 1];
+
+			numElements--;
 			return true;
 		}
-		else
-			value = NULL;
-
 		return false;
 	}
 
@@ -91,7 +92,7 @@ public:
 		return ret;
 	}
 
-	const TYPE& PeekLast() const
+	const TYPE PeekLast() const
 	{
 		if (numElements >= 1)
 		{
@@ -118,4 +119,4 @@ public:
 
 };
 
-#endif // !_STACK_H_
+#endif // !_QeueArray_H_

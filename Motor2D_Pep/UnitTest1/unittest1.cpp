@@ -7,6 +7,8 @@
 #include "..\Motor2D_Pep\Tree.h"
 #include "..\Motor2D_Pep\Stack.h"
 #include "..\Motor2D_Pep\Qeue.h"
+#include "..\Motor2D_Pep\QeueArray.h"
+
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -270,7 +272,30 @@ namespace UnitTest1
 			Assert::AreEqual((int)result, 40);
 			Assert::AreEqual((int)lifo.Count(), 3);
 		}
-		
+		//QEUE_ARRAY-----------------------------------
+		TEST_METHOD(QeueArray_test)
+		{
+			QeueArray<int> fifo;
+
+			fifo.Push(10);
+			fifo.Push(20);
+			fifo.Push(30);
+			fifo.Push(40);
+
+			Assert::AreEqual((int)fifo.Count(), 4);
+			Assert::AreEqual((int)*(fifo.Peek(1)), 20);
+
+			int result;
+			bool r = fifo.Pop(result);
+
+			Assert::AreEqual((int)result, 10);
+			Assert::AreEqual((int)fifo.Count(), 3);
+
+			fifo.Pop(result);
+
+			Assert::AreEqual((int)result, 20);
+			Assert::AreEqual((int)fifo.Count(), 2);
+		}
 		//QEUE-------------------------------------------------
 		TEST_METHOD(Qeue_test)
 		{

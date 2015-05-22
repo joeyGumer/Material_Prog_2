@@ -73,7 +73,9 @@
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Qeue.h" />
+    <ClInclude Include="QeueArray.h" />
     <ClInclude Include="Stack.h" />
+    <ClInclude Include="StackList.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="Swap.h" />
     <ClInclude Include="Timer.h" />
