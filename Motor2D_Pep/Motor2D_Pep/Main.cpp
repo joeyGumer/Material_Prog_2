@@ -14,9 +14,23 @@ int Fibonacci(const unsigned int index)
 		return 1;
 }
 
+int FibonacciIterative(const unsigned int index)
+{
+	int prev = 0;
+	int next = 1;
+
+	for (int i = 0; i < index; i++)
+	{
+		next += prev;
+		prev = next - prev;
+	}
+
+	return next;
+}
+
 void main(int argc, char** argv)
 {
-	LOG("%d ", Fibonacci(10))
+	LOG("%d ", FibonacciIterative(10))
 
 	/*DynArray<int> array1, array2, array3, array4;
 	int r;
