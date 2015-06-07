@@ -143,10 +143,11 @@ public:
 				counter++;
 				if (tmp->value > tmp->next->value)
 				{
-					Swap(tmp->value, tmp->next->value);
+					NodeSwap(tmp, tmp->next);
 					change = true;
 				}
-				tmp = tmp->next;
+				else
+					tmp = tmp->next;
 			}
 			tmp = start;
 		}
@@ -159,14 +160,22 @@ public:
 	//Comrpovar si esta ben fet
 	void NodeSwap(Node<TYPE>* a, Node<TYPE>* b)
 	{
-		Swap(a->next, b->next);
-		Swap(a->prev, b->prev);
+		a->next = b->next;
+		b->next = a;
 
-		a->next->prev = a;
-		b->next->prev = b;
+		b->prev = a->prev;
+		a->prev = b;
 
-		a->prev->next = a;
-		b->prev->next = b;
+		if (start != a)
+			b->prev->next = b;
+		else
+			start = b;
+		
+		if (end != b)
+			a->next->prev = a;
+		else
+			end = a;
+
 	}
 
 	unsigned int GetCapacity() const
@@ -204,6 +213,19 @@ public:
 	/*
 	operator
 	*/
+
+	const Dlist<TYPE>& operator += (const Dlist<Node<TYPE>*>& list)
+	{
+		Node<TYPE>* tmp = list.start;
+
+		for (; tmp != NULL; tmp = tmp->next)
+		{
+			Add(tmp);
+		}
+
+		return(this*);
+	}
+
 	const TYPE& operator [] (const unsigned int index) const
 	{
 		Node<TYPE>* ret = GetByIndex(index);
