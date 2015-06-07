@@ -574,7 +574,7 @@ namespace UnitTest1
 		}
 		
 		// p2SString -----------------------------------------
-		TEST_METHOD(SString_Substiture)
+		/*TEST_METHOD(SString_Substiture)
 		{
 			cString s("Hola mundo");
 			Assert::AreEqual((int)s.Length(), 10);
@@ -586,7 +586,7 @@ namespace UnitTest1
 			s.Substitute("Pepito", "PC");
 			
 			Assert::AreEqual(s.GetString(), "PC mundo");
-		}
+		}*/
 
 		TEST_METHOD(SString_Trim)
 		{

@@ -79,8 +79,8 @@ public:
 	*/
 	~cString()
 	{
-		/*if (str != NULL)
-			delete[] str;*/
+		if (str != NULL)
+			delete[] str;
 	}
 
 	/*
@@ -255,7 +255,7 @@ public:
 
 	//Substiute
 
-	bool Substitute(char* c1, char* c2)
+	/*bool Substitute(char* c1, char* c2)
 	{ 
 		int startSub = 0;
 		int endSub = -1;
@@ -308,7 +308,7 @@ public:
 		
 
 		return true;
-	}
+	}*/
 	/*
 	Utils
 	*/
