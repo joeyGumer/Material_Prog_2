@@ -74,8 +74,13 @@ public:
 		{
 			qNode<TYPE>* tmp = end;
 
-			end = tmp->prev;
-			end->next = NULL;
+			if (tmp != start)
+			{
+				end = tmp->prev;
+				end->next = NULL;
+			}
+			else
+				start = end = NULL;
 
 			value = tmp->value;
 

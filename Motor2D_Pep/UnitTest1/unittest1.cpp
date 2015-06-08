@@ -224,6 +224,35 @@ namespace UnitTest1
 			Assert::AreEqual((char)list[8]->data, 'H');
 		}
 
+		TEST_METHOD(TreeTransversalOrder)
+		{
+			Tree<char> tree('F');
+
+			tree.Add('B', 'F');
+			tree.Add('G', 'F');
+			tree.Add('A', 'B');
+			tree.Add('D', 'B');
+			tree.Add('C', 'D');
+			tree.Add('E', 'D');
+			tree.Add('I', 'G');
+			tree.Add('H', 'I');
+
+			Dlist<tNode<char>*> list;
+			tree.TransversalOrder(&list);
+
+			Assert::AreEqual((int)list.GetCapacity(), 9);
+
+			Assert::AreEqual((char)list[0]->data, 'F');
+			Assert::AreEqual((char)list[1]->data, 'B');
+			Assert::AreEqual((char)list[2]->data, 'G');
+			Assert::AreEqual((char)list[3]->data, 'A');
+			Assert::AreEqual((char)list[4]->data, 'D');
+			Assert::AreEqual((char)list[5]->data, 'I');
+			Assert::AreEqual((char)list[6]->data, 'C');
+			Assert::AreEqual((char)list[7]->data, 'E');
+			Assert::AreEqual((char)list[8]->data, 'H');
+		}
+
 		TEST_METHOD(Clear)
 		{
 			Tree<char> tree('F');

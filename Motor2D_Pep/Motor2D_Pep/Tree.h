@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "Dlist.h"
 #include "Stack.h"
+#include "Qeue.h"
+
 template <class TYPE>
 class tNode
 {
@@ -254,6 +256,25 @@ public:
 		}
 	}
 
+	void TransversalOrder(Dlist<tNode<TYPE>*>* list)
+	{
+		Qeue<tNode<TYPE>*> qeue;
+		tNode<TYPE>* node = rootNode;
+		Node<tNode<TYPE>*>* tmp;
+
+		qeue.Push(node);
+		while (qeue.Pop(node))
+		{
+			list->Add(node);
+
+			if (node->sons.start != NULL)
+			{
+				tmp = node->sons.start;
+				for (; tmp != NULL; tmp = tmp->next)
+					qeue.Push(tmp->value);
+			}
+		}
+	}
 	/*
 	Clear
 	*/
