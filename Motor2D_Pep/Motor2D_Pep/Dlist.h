@@ -210,6 +210,17 @@ public:
 		return NULL;
 	}
 
+	bool Find(const TYPE& data)const
+	{
+		Node<TYPE>* tmp = start;
+
+		for (; tmp != NULL; tmp = tmp->next)
+			if (tmp->value == data)
+				return true;
+		
+		return false;
+	}
+
 	/*
 	operator
 	*/

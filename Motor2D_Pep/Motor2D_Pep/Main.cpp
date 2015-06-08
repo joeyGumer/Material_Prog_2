@@ -43,7 +43,7 @@ void main(int argc, char** argv)
 	tree.Add('H', 'I');
 
 	Dlist<tNode<char>*> list;
-	tree.TransversalOrder(&list);
+	tree.InOrderIterative(&list);
 }
 
 //factorial (!4 = 24)

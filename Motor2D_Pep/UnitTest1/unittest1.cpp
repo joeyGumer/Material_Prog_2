@@ -721,6 +721,23 @@ namespace UnitTest1
 		}
 
 		// p2List --------------------------------------------
+		TEST_METHOD(ListFind)
+		{
+			Dlist<int> mylist;
+
+			mylist.Add(5);
+			mylist.Add(4);
+			mylist.Add(10);
+			mylist.Add(8);
+			mylist.Add(3);
+
+			Assert::IsFalse(mylist.Find(7));
+
+			mylist.Add(7);
+
+			Assert::IsTrue(mylist.Find(7));
+		}
+
 		TEST_METHOD(ListBubbleSort)
 		{
 			Dlist<int> mylist;

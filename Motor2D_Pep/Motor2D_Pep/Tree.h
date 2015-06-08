@@ -22,7 +22,6 @@ public:
 		father = NULL;
 	}
 
-	//I got this idea from your repository because i wanted to have an easy identifier for each tNode, i mean, to ideantify each tNode by their content. 
 	tNode<TYPE>* FindRecursive(const TYPE& node)
 	{
 		if (node == data)
@@ -102,8 +101,7 @@ public:
 public:
 	Tree(const TYPE& value)
 	{
-		tNode<TYPE>* root = new tNode<TYPE>(value);
-		rootNode = root;
+		rootNode = new tNode<TYPE>(value);
 	}
 
 	~Tree()
@@ -175,9 +173,8 @@ public:
 			}
 
 			if (tmp != NULL)
-			{
 				node = tmp->value;
-			}
+			
 			else
 			{
 				node = NULL;
@@ -189,39 +186,63 @@ public:
 	void PostOrderIterative(Dlist<tNode<TYPE>*>* list) const
 	{
 		Stack<tNode<TYPE>*> stack;
-		Stack<tNode<TYPE>*> sonStack;
 		tNode<TYPE>* node = rootNode;
 		Node<tNode<TYPE>*>* tmp;
 
-		while (node != NULL)
+		stack.Push(node);
+		while (stack.Pop(node))
 		{
-			tmp = node->sons.start;
-			stack.Push(node);
-
-			while (tmp != NULL)
+			if (node->sons.start == NULL || list->Find(node->sons.end->value))
+				list->Add(node);
+			
+			else
 			{
-				sonStack.Push(tmp->value);
-				tmp = tmp->next;
-			}
-			sonStack.Pop(node);
-		}
+				stack.Push(node);
+				tmp = node->sons.end;
 
-		stack.Pop(node);
-		while (node != NULL)
-		{
-			list->Add(node);
-			stack.Pop(node);
+				for (; tmp != NULL; tmp = tmp->prev)
+					stack.Push(tmp->value);
+			}
 		}
 	}
+	
 
 	void InOrderIterative(Dlist<tNode<TYPE>*>* list) const
 	{
 		Stack<tNode<TYPE>*> stack;
-		Stack<tNode<TYPE>*> stack2;
+		//Stack<tNode<TYPE>*> stack2;
 		tNode<TYPE>* node = rootNode;
 		Node<tNode<TYPE>*>* tmp;
+		int counter = 0;
 
-		while (node != NULL)
+		stack.Push(node);
+			
+		while (stack.Pop(node))
+		{
+			if (node->sons.start == NULL || list->Find(node->sons.start->value))
+				list->Add(node);
+
+			else
+			{
+				tmp = node->sons.end;
+				counter = node->sons.GetCapacity();
+
+				for (; counter > node->sons.GetCapacity() / 2; tmp = tmp->prev, counter--)
+					stack.Push(tmp->value);
+
+				stack.Push(node);
+				
+				for (; tmp != NULL; tmp = tmp->prev)
+					stack.Push(tmp->value);
+
+				if (node->sons.GetCapacity() == 1)
+				{
+					stack.Pop(node);
+					list->Add(node);
+				}
+			}
+		}
+		/*while (node != NULL)
 		{
 			int counter = node->sons.GetCapacity();
 			tmp = node->sons.end;
@@ -253,7 +274,7 @@ public:
 			}
 
 			stack.Pop(node);
-		}
+		}*/
 	}
 
 	void TransversalOrder(Dlist<tNode<TYPE>*>* list)
