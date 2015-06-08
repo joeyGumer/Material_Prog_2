@@ -253,7 +253,7 @@ namespace UnitTest1
 			Assert::AreEqual((char)list[8]->data, 'H');
 		}
 
-		TEST_METHOD(Clear)
+		TEST_METHOD(TreeClear)
 		{
 			Tree<char> tree('F');
 
@@ -278,6 +278,14 @@ namespace UnitTest1
 			Assert::AreEqual((char)list[1]->data, 'G');
 			Assert::AreEqual((char)list[2]->data, 'I');
 			Assert::AreEqual((char)list[3]->data, 'H');
+
+			tree.Clear('F');
+			
+			Dlist<tNode<char>*> list2;
+			tree.PreOrderIterative(&list2);
+
+			Assert::IsTrue(list2.GetCapacity() == 0);
+			
 
 
 		}

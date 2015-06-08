@@ -41,9 +41,11 @@ void main(int argc, char** argv)
 	tree.Add('E', 'D');
 	tree.Add('I', 'G');
 	tree.Add('H', 'I');
+	
+	tree.Clear('F');
 
 	Dlist<tNode<char>*> list;
-	tree.InOrderIterative(&list);
+	tree.PreOrderIterative(&list);
 }
 
 //factorial (!4 = 24)

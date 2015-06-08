@@ -90,6 +90,41 @@ public:
 			node = node->next;
 		}
 	}
+	/*
+	Utils
+	*/
+	bool RemoveChild(tNode* node)
+	{
+		if (node)
+		{
+			Node<tNode*>* tmp = sons.start;
+			for (; tmp != NULL; tmp = tmp->next)
+			{
+				tNode* child = tmp->value;
+				if (node == child)
+				{
+					sons.Delete(tmp);
+					node->father = NULL;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	void GatherAll(Dlist<tNode*>* list)
+	{
+		list->Add(this);
+
+		Node<tNode*>* tmp = sons.start;
+
+		for (; tmp != NULL; tmp = tmp->next)
+		{
+			tNode* child = tmp->value;
+			child->GatherAll(list);
+		}
+	}
+
 };
 
 template <class TYPE>
@@ -210,13 +245,11 @@ public:
 	void InOrderIterative(Dlist<tNode<TYPE>*>* list) const
 	{
 		Stack<tNode<TYPE>*> stack;
-		//Stack<tNode<TYPE>*> stack2;
 		tNode<TYPE>* node = rootNode;
 		Node<tNode<TYPE>*>* tmp;
 		int counter = 0;
 
 		stack.Push(node);
-			
 		while (stack.Pop(node))
 		{
 			if (node->sons.start == NULL || list->Find(node->sons.start->value))
@@ -242,39 +275,6 @@ public:
 				}
 			}
 		}
-		/*while (node != NULL)
-		{
-			int counter = node->sons.GetCapacity();
-			tmp = node->sons.end;
-
-			while (tmp != NULL && counter > node->sons.GetCapacity() / 2)
-			{
-				stack.Push(tmp->value);
-
-				tmp = tmp->prev;
-				counter--;
-			}
-
-			stack.Push(node);
-			stack2.Push(node);
-
-			while (tmp != NULL && counter > 0)
-			{
-				stack.Push(tmp->value);
-
-				tmp = tmp->prev;
-				counter--;
-			}
-
-			while (stack.PeekLast() == stack2.PeekLast() && stack.PeekLast() != NULL)
-			{
-				stack.Pop(node);
-				stack2.Pop(node);
-				list->Add(node);
-			}
-
-			stack.Pop(node);
-		}*/
 	}
 
 	void TransversalOrder(Dlist<tNode<TYPE>*>* list)
@@ -299,19 +299,19 @@ public:
 	/*
 	Clear
 	*/
-	void Clear(const TYPE& node)
+	bool Clear(const TYPE& node)
 	{
 		tNode<TYPE>* delNode = rootNode->FindRecursive(node);
 		Node<tNode<TYPE>*>* tmp;
 		Node<tNode<TYPE>*>* tmp2;
 		unsigned int counter = 0;
 
-		if (delNode == NULL && rootNode != NULL)
+		if (delNode == NULL)
 		{
-			delNode = rootNode;
+			return false;
 		}
-
-		if (delNode != NULL)
+		
+		else
 		{
 			tmp = delNode->sons.start;
 
@@ -326,14 +326,33 @@ public:
 					counter++;
 				}
 			}
-			tmp = delNode->father->sons.start;
-			delNode->father->sons.Delete(tmp);
+
+			if (delNode != rootNode)
+			{
+				tmp = delNode->father->sons.start;
+				delNode->father->sons.Delete(tmp);
+			}
+			else
+				rootNode = NULL;
 		}
-		if (delNode == rootNode)
-		{
-			rootNode = NULL;
-		}
+		return true;
 	}
+
+	/*void Clear()
+	{
+		Dlist<tNode<TYPE>*> list;
+		
+		rootNode->GatherAll(&list);
+
+		Node<tNode<TYPE>*>* tmp = list.start;
+		for (; tmp != NULL; tmp = tmp->next)
+		{
+			tNode<TYPE>* child = tmp->value;
+			if (child->father)
+				child->father->RemoveChild(child);
+		}
+		delete[] rootNode;
+	}*/
 };
 
 #endif _TREE_H_<
