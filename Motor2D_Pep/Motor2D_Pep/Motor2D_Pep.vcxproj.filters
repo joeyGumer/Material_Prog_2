@@ -66,6 +66,9 @@
     <ClInclude Include="QeueArray.h">
       <Filter>Header Files\Exercises</Filter>
     </ClInclude>
+    <ClInclude Include="Point3D.h">
+      <Filter>Header Files\Exercises</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

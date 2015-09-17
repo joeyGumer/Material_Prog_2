@@ -69,6 +69,7 @@
     <ClInclude Include="DynArray.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Point3D.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Projectile.h" />
